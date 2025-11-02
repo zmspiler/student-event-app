@@ -1,5 +1,5 @@
 import { onError } from "@orpc/server";
-import { RPCHandler } from "@orpc/server/node";
+import { RPCHandler } from "@orpc/server/fastify";
 import { CORSPlugin } from "@orpc/server/plugins";
 import { router } from "./router";
 

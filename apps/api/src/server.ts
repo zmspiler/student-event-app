@@ -1,17 +1,25 @@
-import { createServer } from "node:http";
+import Fastify from "fastify";
 import { handler } from "./handler";
 
-const server = createServer(async (req, res) => {
-  const result = await handler.handle(req, res, {
-    context: { headers: req.headers },
+const fastify = Fastify();
+
+fastify.addContentTypeParser("*", (_request, _payload, done) => {
+  // Fully utilize oRPC feature by allowing any content type
+  // And let oRPC parse the body manually by passing `undefined`
+  done(null, undefined);
+});
+
+fastify.all("/rpc/*", async (req, reply) => {
+  const { matched } = await handler.handle(req, reply, {
+    prefix: "/rpc",
+    context: {}, // Provide initial context if needed
   });
 
-  if (!result.matched) {
-    res.statusCode = 404;
-    res.end("No procesure matched.");
+  if (!matched) {
+    reply.status(404).send("Not found");
   }
 });
 
-server.listen(3000, "127.0.0.1", () =>
-  console.log("Listening on 127.0.0.1:3000"),
-);
+fastify
+  .listen({ port: 3000 })
+  .then(() => console.log("Server running on http://localhost:3000"));
