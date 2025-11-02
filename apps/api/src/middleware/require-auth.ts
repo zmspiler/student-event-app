@@ -14,6 +14,10 @@ const base = os.$context<ORPCContext>().errors({
     message: "Authentication required to access this resource.",
     status: 401,
   },
+  NOT_FOUND: {
+    message: "Entity not found.",
+    status: 404,
+  },
 });
 
 const middleware = base.middleware(async ({ context, errors, next }) => {
