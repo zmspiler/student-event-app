@@ -1,7 +1,8 @@
 import Fastify from "fastify";
+import { auth } from "./auth";
 import { handler } from "./handler";
 
-const fastify = Fastify();
+const fastify = Fastify({ logger: true });
 
 fastify.addContentTypeParser("*", (_request, _payload, done) => {
   // Fully utilize oRPC feature by allowing any content type
@@ -20,6 +21,47 @@ fastify.all("/rpc/*", async (req, reply) => {
   }
 });
 
-fastify
-  .listen({ port: 3000 })
-  .then(() => console.log("Server running on http://localhost:3000"));
+// Register authentication endpoint
+fastify.route({
+  method: ["GET", "POST"],
+  url: "/auth/*",
+  async handler(request, reply) {
+    try {
+      // Construct request URL
+      const url = new URL(request.url, `http://${request.headers.host}`);
+
+      // Convert Fastify headers to standard Headers object
+      const headers = new Headers();
+      Object.entries(request.headers).forEach(([key, value]) => {
+        if (value) headers.append(key, value.toString());
+      });
+      // Create Fetch API-compatible request
+      const req = new Request(url.toString(), {
+        method: request.method,
+        headers,
+        body: request.body ? JSON.stringify(request.body) : undefined,
+      });
+      // Process authentication request
+      const response = await auth.handler(req);
+      // Forward response to client
+      reply.status(response.status);
+      // biome-ignore lint/suspicious/useIterableCallbackReturn: Copied from example
+      response.headers.forEach((value, key) => reply.header(key, value));
+      reply.send(response.body ? await response.text() : null);
+    } catch (error) {
+      // Log error with structured object to satisfy Fastify/pino types
+      fastify.log.error({ err: error }, "Authentication Error");
+      reply.status(500).send({
+        error: "Internal authentication error",
+        code: "AUTH_FAILURE",
+      });
+    }
+  },
+});
+
+fastify.listen({ port: 3000 }, (err) => {
+  if (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+});
