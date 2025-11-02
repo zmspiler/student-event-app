@@ -1,3 +1,4 @@
+import fastifyCors from "@fastify/cors";
 import Fastify from "fastify";
 import { auth } from "./auth";
 import { handler } from "./handler";
@@ -8,6 +9,14 @@ fastify.addContentTypeParser("*", (_request, _payload, done) => {
   // Fully utilize oRPC feature by allowing any content type
   // And let oRPC parse the body manually by passing `undefined`
   done(null, undefined);
+});
+
+fastify.register(fastifyCors, {
+  origin: process.env.CLIENT_ORIGIN || "http://localhost:3080",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  credentials: true,
+  maxAge: 86400,
 });
 
 fastify.all("/rpc/*", async (req, reply) => {
