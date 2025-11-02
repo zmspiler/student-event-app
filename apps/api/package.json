@@ -1,0 +1,15 @@
+{
+  "name": "api",
+  "dependencies": {
+    "@orpc/server": "^1.10.2",
+    "zod": "^4.1.12"
+  },
+  "scripts": {
+    "dev": "tsx watch ./src/server.ts"
+  },
+  "private": true,
+  "devDependencies": {
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
