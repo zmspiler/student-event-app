@@ -18,6 +18,7 @@ app.use(
   }),
 );
 
+// RPC routes
 app.use("/rpc/*", async (c, next) => {
   const { matched, response } = await handler.handle(c.req.raw, {
     prefix: "/rpc",
@@ -31,7 +32,8 @@ app.use("/rpc/*", async (c, next) => {
   await next();
 });
 
-app.on(["POST", "GET"], "/api/auth/*", (c) => {
+// Auth routes
+app.on(["POST", "GET"], "/auth/*", (c) => {
   return auth.handler(c.req.raw);
 });
 
