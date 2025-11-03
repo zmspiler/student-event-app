@@ -1,9 +1,15 @@
+import getEvent from "./procedures/events/get";
+import getAllEvents from "./procedures/events/get-all";
+import createEvent from "./procedures/events/create";
+import updateEvent from "./procedures/events/update";
+import deleteEvent from "./procedures/events/delete";
+
 export const router = {
   events: {
-    get: () => import("./procedures/events/get").then((m) => m.default),
-    getAll: () => import("./procedures/events/get-all").then((m) => m.default),
-    create: () => import("./procedures/events/create").then((m) => m.default),
-    update: () => import("./procedures/events/update").then((m) => m.default),
-    delete: () => import("./procedures/events/delete").then((m) => m.default),
+    get: getEvent,
+    getAll: getAllEvents,
+    create: createEvent,
+    update: updateEvent,
+    delete: deleteEvent,
   },
 };
