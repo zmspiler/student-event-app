@@ -1,10 +1,13 @@
-import { onError } from "@orpc/server";
-import { router } from "./router";
-import { OpenAPIHandler } from "@orpc/openapi/fastify";
-import { ZodSmartCoercionPlugin } from "@orpc/zod";
+import { OpenAPIHandler } from "@orpc/openapi/fetch";
 import { OpenAPIReferencePlugin } from "@orpc/openapi/plugins";
+import { onError } from "@orpc/server";
+import {
+  RequestHeadersPlugin,
+  ResponseHeadersPlugin,
+} from "@orpc/server/plugins";
+import { ZodSmartCoercionPlugin } from "@orpc/zod";
 import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
-import { RequestHeadersPlugin, ResponseHeadersPlugin } from "@orpc/server/plugins";
+import { router } from "./router";
 
 export const handler = new OpenAPIHandler(router, {
   plugins: [
@@ -12,18 +15,20 @@ export const handler = new OpenAPIHandler(router, {
     new ResponseHeadersPlugin(),
     new ZodSmartCoercionPlugin(),
     new OpenAPIReferencePlugin({
-      docsProvider: 'scalar',
-      docsPath: '/docs',
-      schemaConverters: [
-        new ZodToJsonSchemaConverter(),
-      ],
+      docsProvider: "scalar",
+      docsPath: "/docs",
+      schemaConverters: [new ZodToJsonSchemaConverter()],
       specGenerateOptions: {
         info: {
-          title: 'Student Event App API',
-          version: '1.0.0',
+          title: "Student Event App API",
+          version: "1.0.0",
         },
       },
     }),
   ],
-  interceptors: [onError((error) => console.log("Error", (error as () => ({ message: string }))().message))],
+  interceptors: [
+    onError((error) =>
+      console.log(error),
+    ),
+  ],
 });

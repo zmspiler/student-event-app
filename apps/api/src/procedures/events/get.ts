@@ -1,6 +1,6 @@
 import z from "zod";
-import { requireAuth } from "../../middleware/require-auth";
 import { EventModelSchema } from "../../../prisma/generated/schemas";
+import { requireAuth } from "../../middleware/require-auth";
 import { prisma } from "../../prisma";
 
 export default requireAuth
