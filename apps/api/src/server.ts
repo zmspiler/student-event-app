@@ -1,9 +1,22 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { auth } from "./auth";
 import { handler } from "./handler";
 
 const app = new Hono();
+
+app.use(
+  "*",
+  cors({
+    origin: process.env.CLIENT_ORIGIN || "http://localhost:3080",
+    allowHeaders: ["Content-Type", "Authorization"],
+    allowMethods: ["POST", "GET", "OPTIONS"],
+    exposeHeaders: ["Content-Length"],
+    maxAge: 600,
+    credentials: true,
+  }),
+);
 
 app.use("/rpc/*", async (c, next) => {
   const { matched, response } = await handler.handle(c.req.raw, {
@@ -19,10 +32,10 @@ app.use("/rpc/*", async (c, next) => {
 });
 
 app.on(["POST", "GET"], "/api/auth/*", (c) => {
-	return auth.handler(c.req.raw);
+  return auth.handler(c.req.raw);
 });
 
 serve({
   fetch: app.fetch,
-  port: 3000
+  port: 3000,
 });
