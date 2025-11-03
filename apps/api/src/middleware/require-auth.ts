@@ -22,7 +22,7 @@ const base = os.$context<ORPCContext>().errors({
 
 const middleware = base.middleware(async ({ context, errors, next }) => {
   if (!context.reqHeaders) {
-    throw errors.UNAUTHORIZED;
+    throw errors.UNAUTHORIZED();
   }
 
   const session = await auth.api.getSession({
@@ -30,7 +30,7 @@ const middleware = base.middleware(async ({ context, errors, next }) => {
   });
 
   if (!session) {
-    throw errors.UNAUTHORIZED;
+    throw errors.UNAUTHORIZED();
   }
 
   return next({
