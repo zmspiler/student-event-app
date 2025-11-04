@@ -6,12 +6,12 @@ import { requireAuth } from "../../middleware/require-auth";
 import { prisma } from "../../prisma";
 
 export default requireAuth
-.route({
-  method: "POST",
-  tags: ["events"],
-  path: "/events",
-  successStatus: 201,
-})
+  .route({
+    method: "POST",
+    tags: ["events"],
+    path: "/events",
+    successStatus: 201,
+  })
   .input(EventInputSchema)
   .output(EventSchema)
   .handler(async ({ input }) => {

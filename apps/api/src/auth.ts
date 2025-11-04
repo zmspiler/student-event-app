@@ -4,9 +4,11 @@ import { openAPI } from "better-auth/plugins";
 import { prisma } from "./prisma";
 
 export const auth = betterAuth({
-  plugins: [openAPI({
-    path: '/spec'
-  })],
+  plugins: [
+    openAPI({
+      path: "/spec",
+    }),
+  ],
   database: prismaAdapter(prisma, {
     provider: "sqlite",
   }),

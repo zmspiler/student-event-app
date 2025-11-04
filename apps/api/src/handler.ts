@@ -27,9 +27,5 @@ export const handler = new OpenAPIHandler(router, {
       },
     }),
   ],
-  interceptors: [
-    onError((error) =>
-      console.log(error),
-    ),
-  ],
+  interceptors: [onError((error) => console.log(error))],
 });
