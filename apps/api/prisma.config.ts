@@ -1,8 +1,9 @@
 import { defineConfig, env } from "prisma/config";
 import "dotenv/config";
+import path from "node:path";
 
 export default defineConfig({
-  schema: "prisma/schema.prisma",
+  schema: path.join('prisma'),
   migrations: {
     path: "prisma/migrations",
   },
