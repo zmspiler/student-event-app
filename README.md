@@ -17,7 +17,7 @@ Build in React Native for convenience (sharing types between backend and mobile)
 
 #### Technologies
 - [Expo](https://expo.dev/)
-- [Tamagui](https://tamagui.dev/)
+- [NativeWind](https://www.nativewind.dev/)
 
 ## Developer setup
 
