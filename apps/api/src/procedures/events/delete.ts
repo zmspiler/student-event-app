@@ -5,6 +5,7 @@ import { prisma } from "../../prisma";
 export default requireAuth
 .route({
   method: "DELETE",
+  tags: ["events"],
   path: "/events/{id}",
   successStatus: 204,
 })

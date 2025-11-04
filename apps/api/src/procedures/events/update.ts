@@ -9,6 +9,7 @@ import { prisma } from "../../prisma";
 export default requireAuth
 .route({
   method: "PUT",
+  tags: ["events"],
   path: "/events/{id}",
   successStatus: 200,
 })
