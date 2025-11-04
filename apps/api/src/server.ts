@@ -14,7 +14,7 @@ app.use(
   cors({
     origin: process.env.CLIENT_ORIGIN || "http://localhost:3080",
     allowHeaders: ["Content-Type", "Authorization"],
-    allowMethods: ["POST", "GET", "OPTIONS"],
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     exposeHeaders: ["Content-Length"],
     maxAge: 600,
     credentials: true,
