@@ -22,14 +22,17 @@ Build in React Native for convenience (sharing types between backend and mobile)
 ## Developer setup
 
 ### Prerequisites
-- Installed [NodeJS](https://nodejs.org/en) and [NPM](https://www.npmjs.com/) on your system
+- Installed [NodeJS](https://nodejs.org/en) and [PNPM](https://pnpm.io/) on your system
 - Set up [Expo development environment](https://docs.expo.dev/get-started/set-up-your-environment/) for android
 
 ### Setup script
 Run this in the root folder of the project.
 ```bash
 # Install dependencies
-npm install
+pnpm install
+
+# Set up env files
+cd apps/api && cp .env.example .env
 
 # Generate prisma types
 cd apps/api && npx prisma generate
