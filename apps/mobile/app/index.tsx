@@ -1,4 +1,4 @@
-import { Stack, Link } from "expo-router";
+import { Link, Stack } from "expo-router";
 
 import { View } from "react-native";
 
