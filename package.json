@@ -3,5 +3,10 @@
     "@biomejs/biome": "^2.3.2",
     "turbo": "^2.6.0"
   },
-  "private": true
+  "scripts": {
+    "check": "biome check .",
+    "check:fix": "biome check --write ."
+  },
+  "private": true,
+  "packageManager": "pnpm@10.20.0"
 }
