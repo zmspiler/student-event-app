@@ -1,7 +1,7 @@
 import z from "zod";
-import { EventSchema } from "../../../prisma/generated/schemas";
 import { requireAuth } from "../../middleware/require-auth";
 import { prisma } from "../../prisma";
+import { EventModelSchema } from "../../../prisma/generated/schemas";
 
 export default requireAuth
   .route({
@@ -11,7 +11,7 @@ export default requireAuth
     successStatus: 200,
   })
   .input(z.object({ id: z.cuid() }))
-  .output(EventSchema)
+  .output(EventModelSchema)
   .handler(async ({ input, errors }) => {
     const event = await prisma.event.findUnique({
       where: { id: input.id },

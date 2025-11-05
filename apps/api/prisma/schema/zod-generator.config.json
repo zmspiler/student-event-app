@@ -1,3 +1,9 @@
 {
-  "mode": "minimal"
+  "mode": "full",
+  "pureModels": true,
+  "variants": {
+    "pure": { "enabled": true },
+    "input": { "enabled": true },
+    "result": { "enabled": true }
+  }
 }
