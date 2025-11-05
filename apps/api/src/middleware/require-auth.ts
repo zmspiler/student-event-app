@@ -1,24 +1,6 @@
-import { os } from "@orpc/server";
-import type {
-  RequestHeadersPluginContext,
-  ResponseHeadersPluginContext,
-} from "@orpc/server/plugins";
 import { auth } from "../auth";
+import { base } from "./base";
 
-interface ORPCContext
-  extends RequestHeadersPluginContext,
-    ResponseHeadersPluginContext {}
-
-const base = os.$context<ORPCContext>().errors({
-  UNAUTHORIZED: {
-    message: "Authentication required to access this resource.",
-    status: 401,
-  },
-  NOT_FOUND: {
-    message: "Entity not found.",
-    status: 404,
-  },
-});
 
 const middleware = base.middleware(async ({ context, errors, next }) => {
   if (!context.reqHeaders) {

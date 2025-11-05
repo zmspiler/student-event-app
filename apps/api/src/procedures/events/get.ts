@@ -1,9 +1,9 @@
 import z from "zod";
-import { requireAuth } from "../../middleware/require-auth";
 import { prisma } from "../../prisma";
 import { EventModelSchema } from "../../../prisma/generated/schemas";
+import { base } from "../../middleware/base";
 
-export default requireAuth
+export default base
   .route({
     method: "GET",
     tags: ["events"],

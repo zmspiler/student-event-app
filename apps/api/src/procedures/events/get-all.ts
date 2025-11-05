@@ -1,8 +1,8 @@
 import { EventModelSchema } from "../../../prisma/generated/schemas";
-import { requireAuth } from "../../middleware/require-auth";
+import { base } from "../../middleware/base";
 import { prisma } from "../../prisma";
 
-export default requireAuth
+export default base
   .route({
     method: "GET",
     tags: ["events"],
