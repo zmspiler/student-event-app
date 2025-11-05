@@ -1,11 +1,19 @@
-import { EventDeleteOneSchema } from "../../../prisma/generated/schemas";
+import z from "zod";
 import { requireAuth } from "../../middleware/require-auth";
 import { prisma } from "../../prisma";
 
 export default requireAuth
-  .input(EventDeleteOneSchema)
+  .route({
+    method: "DELETE",
+    tags: ["events"],
+    path: "/events/{id}",
+    successStatus: 204,
+  })
+  .input(z.object({ id: z.cuid() }))
   .handler(async ({ input, errors }) => {
-    const event = await prisma.event.delete(input);
+    const event = await prisma.event.delete({
+      where: { id: input.id },
+    });
 
     if (!event) {
       throw errors.NOT_FOUND;

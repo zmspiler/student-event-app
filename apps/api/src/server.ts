@@ -1,17 +1,20 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { logger } from "hono/logger";
 import { auth } from "./auth";
 import { handler } from "./handler";
 
 const app = new Hono();
+
+app.use(logger());
 
 app.use(
   "*",
   cors({
     origin: process.env.CLIENT_ORIGIN || "http://localhost:3080",
     allowHeaders: ["Content-Type", "Authorization"],
-    allowMethods: ["POST", "GET", "OPTIONS"],
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     exposeHeaders: ["Content-Length"],
     maxAge: 600,
     credentials: true,

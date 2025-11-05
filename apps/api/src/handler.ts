@@ -16,7 +16,8 @@ export const handler = new OpenAPIHandler(router, {
     new ZodSmartCoercionPlugin(),
     new OpenAPIReferencePlugin({
       docsProvider: "scalar",
-      docsPath: "/docs",
+      docsPath: "/spec",
+      specPath: "/spec.json",
       schemaConverters: [new ZodToJsonSchemaConverter()],
       specGenerateOptions: {
         info: {
@@ -26,9 +27,5 @@ export const handler = new OpenAPIHandler(router, {
       },
     }),
   ],
-  interceptors: [
-    onError((error) =>
-      console.log(error),
-    ),
-  ],
+  interceptors: [onError((error) => console.log(error))],
 });
