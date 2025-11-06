@@ -4,6 +4,7 @@ import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { auth } from "./auth";
 import { handler } from "./handler";
+import { CLIENT_ORIGIN } from "./environment";
 
 const app = new Hono();
 
@@ -12,7 +13,7 @@ app.use(logger());
 app.use(
   "*",
   cors({
-    origin: process.env.CLIENT_ORIGIN || "http://localhost:3080",
+    origin: CLIENT_ORIGIN,
     allowHeaders: ["Content-Type", "Authorization"],
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     exposeHeaders: ["Content-Length"],

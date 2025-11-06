@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { openAPI } from "better-auth/plugins";
 import { prisma } from "./prisma";
+import { AUTH_SECRET, AUTH_URL } from "./environment";
 
 export const auth = betterAuth({
   plugins: [
@@ -16,8 +17,8 @@ export const auth = betterAuth({
     enabled: true,
     minPasswordLength: 8,
   },
-  baseURL: process.env.AUTH_URL || "http://localhost:3000",
-  secret: process.env.AUTH_SECRET,
+  baseURL: AUTH_URL,
+  secret: AUTH_SECRET,
   basePath: "/auth",
   trustedOrigins: ["http://localhost:3080"],
 });
