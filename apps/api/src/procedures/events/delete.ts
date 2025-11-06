@@ -16,6 +16,6 @@ export default requireAuth
     });
 
     if (!event) {
-      throw errors.NOT_FOUND;
+      throw errors.NOT_FOUND();
     }
   });
