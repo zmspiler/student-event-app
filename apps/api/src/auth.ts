@@ -1,3 +1,4 @@
+import { expo } from "@better-auth/expo";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { openAPI } from "better-auth/plugins";
@@ -9,6 +10,7 @@ export const auth = betterAuth({
     openAPI({
       path: "/spec",
     }),
+    expo(),
   ],
   database: prismaAdapter(prisma, {
     provider: "sqlite",
@@ -20,5 +22,5 @@ export const auth = betterAuth({
   baseURL: AUTH_URL,
   secret: AUTH_SECRET,
   basePath: "/auth",
-  trustedOrigins: ["http://localhost:3080"],
+  trustedOrigins: ["http://localhost:3080", "student-event-app://"],
 });
