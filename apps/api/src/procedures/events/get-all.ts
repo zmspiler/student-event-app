@@ -1,4 +1,4 @@
-import { EventModelSchema } from "../../../prisma/generated/schemas";
+import { EventSchema } from "../../../prisma/generated/schemas";
 import { base } from "../../middleware/base";
 import { prisma } from "../../prisma";
 
@@ -9,5 +9,5 @@ export default base
     path: "/events",
     successStatus: 200,
   })
-  .output(EventModelSchema.array())
+  .output(EventSchema.array())
   .handler(async () => prisma.event.findMany());

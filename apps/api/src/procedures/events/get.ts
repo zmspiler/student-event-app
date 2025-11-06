@@ -1,7 +1,7 @@
 import z from "zod";
-import { prisma } from "../../prisma";
-import { EventModelSchema } from "../../../prisma/generated/schemas";
+import { EventSchema } from "../../../prisma/generated/schemas";
 import { base } from "../../middleware/base";
+import { prisma } from "../../prisma";
 
 export default base
   .route({
@@ -11,7 +11,7 @@ export default base
     successStatus: 200,
   })
   .input(z.object({ id: z.cuid() }))
-  .output(EventModelSchema)
+  .output(EventSchema)
   .handler(async ({ input, errors }) => {
     const event = await prisma.event.findUnique({
       where: { id: input.id },

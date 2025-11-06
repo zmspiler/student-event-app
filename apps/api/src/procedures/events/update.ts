@@ -1,7 +1,7 @@
 import z from "zod";
 import {
   EventInputSchema,
-  EventModelSchema,
+  EventSchema,
 } from "../../../prisma/generated/schemas";
 import { requireAuth } from "../../middleware/require-auth";
 import { prisma } from "../../prisma";
@@ -14,7 +14,7 @@ export default requireAuth
     successStatus: 200,
   })
   .input(EventInputSchema.extend({ id: z.cuid() }))
-  .output(EventModelSchema)
+  .output(EventSchema)
   .handler(async ({ input }) => {
     const event = await prisma.event.update({
       where: { id: input.id },

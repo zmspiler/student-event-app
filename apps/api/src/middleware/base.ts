@@ -1,5 +1,8 @@
 import { os } from "@orpc/server";
-import type { RequestHeadersPluginContext, ResponseHeadersPluginContext } from "@orpc/server/plugins";
+import type {
+  RequestHeadersPluginContext,
+  ResponseHeadersPluginContext,
+} from "@orpc/server/plugins";
 
 interface ORPCContext
   extends RequestHeadersPluginContext,

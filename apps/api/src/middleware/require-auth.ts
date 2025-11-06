@@ -1,7 +1,6 @@
 import { auth } from "../auth";
 import { base } from "./base";
 
-
 const middleware = base.middleware(async ({ context, errors, next }) => {
   if (!context.reqHeaders) {
     throw errors.UNAUTHORIZED();

@@ -3,8 +3,8 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { auth } from "./auth";
-import { handler } from "./handler";
 import { CLIENT_ORIGIN } from "./environment";
+import { handler } from "./handler";
 
 const app = new Hono();
 

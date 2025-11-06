@@ -1,8 +1,8 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { openAPI } from "better-auth/plugins";
-import { prisma } from "./prisma";
 import { AUTH_SECRET, AUTH_URL } from "./environment";
+import { prisma } from "./prisma";
 
 export const auth = betterAuth({
   plugins: [
