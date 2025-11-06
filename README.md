@@ -35,7 +35,7 @@ pnpm install
 cd apps/api && cp .env.example .env
 
 # Generate prisma types
-cd apps/api && npx prisma generate
+cd apps/api && pnpx prisma generate && pnpx prisma migrate dev
 ```
 
 ### Running the projects
