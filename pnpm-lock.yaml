@@ -23,6 +23,9 @@ importers:
       '@hono/node-server':
         specifier: ^1.19.6
         version: 1.19.6(hono@4.10.4)
+      '@orpc/contract':
+        specifier: ^1.11.1
+        version: 1.11.1
       '@orpc/openapi':
         specifier: ^1.10.3
         version: 1.10.3(ws@8.18.3)
