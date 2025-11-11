@@ -1,3 +1,4 @@
+import type { RouterClient } from "@orpc/server";
 import createEvent from "./procedures/events/create";
 import deleteEvent from "./procedures/events/delete";
 import getEvent from "./procedures/events/get";
@@ -13,3 +14,5 @@ export const router = {
     delete: deleteEvent,
   },
 };
+
+export type SEARouterClient = RouterClient<typeof router>;
