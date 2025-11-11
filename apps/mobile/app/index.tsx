@@ -4,7 +4,7 @@ import { PageTitle } from "@/components/page-title";
 import { apiQueryClient } from "@/lib/api-client";
 
 export default function Home() {
-  const { data, error } = useQuery(apiQueryClient.events.getAll.queryOptions());
+  const { error } = useQuery(apiQueryClient.events.getAll.queryOptions());
 
   return (
     <>
