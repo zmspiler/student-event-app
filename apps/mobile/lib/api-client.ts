@@ -1,19 +1,17 @@
 import { createORPCClient, onError } from "@orpc/client";
+import type { ContractRouterClient } from "@orpc/contract";
+import type { JsonifiedClient } from "@orpc/openapi-client";
 import { OpenAPILink } from "@orpc/openapi-client/fetch";
 import { createTanstackQueryUtils } from "@orpc/tanstack-query";
-import { router, type SEARouterClient } from "../../api/src/router";
+import { fetch } from "expo/fetch";
+import { contract } from "../../api/src/contract";
 
-const link = new OpenAPILink(router, {
+const link = new OpenAPILink(contract, {
   url: "http://10.0.2.2:3000/rpc",
   async fetch(request, init) {
-    const { fetch } = await import("expo/fetch");
-
     const resp = await fetch(request.url, {
-      body: await request.blob(),
-      headers: {
-        credentials: "include",
-        ...request.headers,
-      },
+      body: request.method === "GET" ? undefined : await request.blob(),
+      headers: request.headers,
       method: request.method,
       signal: request.signal,
       ...init,
@@ -24,5 +22,6 @@ const link = new OpenAPILink(router, {
   interceptors: [onError((error) => console.error(error))],
 });
 
-export const apiClient: SEARouterClient = createORPCClient(link);
+export const apiClient: JsonifiedClient<ContractRouterClient<typeof contract>> =
+  createORPCClient(link);
 export const apiQueryClient = createTanstackQueryUtils(apiClient);
