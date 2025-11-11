@@ -23,6 +23,9 @@ importers:
       '@hono/node-server':
         specifier: ^1.19.6
         version: 1.19.6(hono@4.10.4)
+      '@orpc/contract':
+        specifier: ^1.11.1
+        version: 1.11.1
       '@orpc/openapi':
         specifier: ^1.10.3
         version: 1.10.3(ws@8.18.3)
@@ -31,7 +34,7 @@ importers:
         version: 1.10.3(ws@8.18.3)
       '@orpc/zod':
         specifier: ^1.10.3
-        version: 1.10.3(@orpc/contract@1.10.3)(@orpc/server@1.10.3(ws@8.18.3))(ws@8.18.3)(zod@4.1.12)
+        version: 1.10.3(@orpc/contract@1.11.1)(@orpc/server@1.10.3(ws@8.18.3))(ws@8.18.3)(zod@4.1.12)
       '@prisma/client':
         specifier: ^6.18.0
         version: 6.18.0(prisma@6.18.0(typescript@5.9.3))(typescript@5.9.3)
@@ -72,9 +75,18 @@ importers:
       '@expo/vector-icons':
         specifier: ^15.0.2
         version: 15.0.3(expo-font@14.0.9(expo@54.0.22)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      '@orpc/client':
+        specifier: ^1.11.1
+        version: 1.11.1
+      '@orpc/tanstack-query':
+        specifier: ^1.11.1
+        version: 1.11.1(@orpc/client@1.11.1)(@tanstack/query-core@5.90.7)
       '@react-navigation/native':
         specifier: ^7.1.6
         version: 7.1.19(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      '@tanstack/react-query':
+        specifier: ^5.90.7
+        version: 5.90.7(react@19.1.0)
       better-auth:
         specifier: ^1.3.34
         version: 1.3.34(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -87,6 +99,9 @@ importers:
       expo-linking:
         specifier: ~8.0.8
         version: 8.0.8(expo@54.0.22)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      expo-network:
+        specifier: ~8.0.7
+        version: 8.0.7(expo@54.0.22)(react@19.1.0)
       expo-router:
         specifier: ~6.0.10
         version: 6.0.14(@expo/metro-runtime@6.1.2)(@types/react@19.1.17)(expo-constants@18.0.10)(expo-linking@8.0.8)(expo@54.0.22)(react-dom@19.1.0(react@19.1.0))(react-native-gesture-handler@2.28.0(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native-reanimated@4.1.3(@babel/core@7.28.5)(react-native-worklets@0.5.1(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native-screens@4.16.0(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
@@ -1212,8 +1227,14 @@ packages:
   '@orpc/client@1.10.3':
     resolution: {integrity: sha512-NGrpISN6M4gXn2XvqzxkgtI8lu8p8a3h/l4bzLzGVNvdahfBTLe2zLlFQYsh84eZP9b7kdTPryiODySA86Ap3g==}
 
+  '@orpc/client@1.11.1':
+    resolution: {integrity: sha512-/oqIEyyOQd5UHn+JWEzs5on7YhLxkZpIvsSxIPfvH/bCsYXgro1hWfDpD8A1GG90Vhy3FXf7p+yFE9PhbKQSig==}
+
   '@orpc/contract@1.10.3':
     resolution: {integrity: sha512-p7zUID96VVDqsc8NTkzsuPYlSXLErVv87dOeo3XWoWk5xHYa1XHKVMg/EK8jZXS874zBbNCw0QrDXRm11KJbDw==}
+
+  '@orpc/contract@1.11.1':
+    resolution: {integrity: sha512-rSwnb8rVZhwS3LCkd+qrlukDVUEBWnQNcrGmt4zqMOBz7P/95xA2N+s8sRa5SXYYCFTyL46t989iHu/vNOz/kQ==}
 
   '@orpc/interop@1.10.3':
     resolution: {integrity: sha512-z8TzA3Shd9b0UJ2JjnMOtRPQlTYFQjMvu6MVzvvDIhj5hZo2RiZcsnlMB4HuORYnohU4HgovPgrq+9GbCWeRzA==}
@@ -1246,6 +1267,14 @@ packages:
       '@opentelemetry/api':
         optional: true
 
+  '@orpc/shared@1.11.1':
+    resolution: {integrity: sha512-HKA5Zf5aF407jKQlMGAQh8A2JHy1udAdT/2D6WFNHFqa4Qo2PTGOjwVqeYlqQj9lTvp71P1QQYQT47sF7rKYqg==}
+    peerDependencies:
+      '@opentelemetry/api': '>=1.9.0'
+    peerDependenciesMeta:
+      '@opentelemetry/api':
+        optional: true
+
   '@orpc/standard-server-aws-lambda@1.10.3':
     resolution: {integrity: sha512-GPaOWjoZqyr+qAu6jYsL34M8IpzCfPlSOIH6UzWHi5+xhLnM4pnmNjx0qJrIUuv6ExoaTo/yitzojBqlhT7edg==}
 
@@ -1260,14 +1289,29 @@ packages:
   '@orpc/standard-server-fetch@1.10.3':
     resolution: {integrity: sha512-V8IUH9skzYcV3yxm4PjW5Pzimk5ittBpfgFKKb6wU9llpmA/OFQC0k8fgkFJ4qnMyyYHKwpGEx4oeYLVvN9exA==}
 
+  '@orpc/standard-server-fetch@1.11.1':
+    resolution: {integrity: sha512-KkpPxzdXXD8fJ6OOcpe25qFoTnY0b6jpi3AN334CcpKelMEer/QybCKf5/TZi4Dn30/Vmv28StyFpynH5OBL4w==}
+
   '@orpc/standard-server-node@1.10.3':
     resolution: {integrity: sha512-9YBFrOy+kVOGBBVgwhZb6UlaY4ZjLn7qZRMKPGDXStzTPiRV4mJ7BGGsiCZ99KlGGwwq+gd/M1HgpIQn8FlNEA==}
 
   '@orpc/standard-server-peer@1.10.3':
     resolution: {integrity: sha512-F6xFvyG/FCzCA4l0fsVTaaH1RSz2e+Sl6k0uQnfZyKk8K/Hy8RQ24uUtTeY+CFwnX0vtPB5OUn6dpkQm3v5XTA==}
 
+  '@orpc/standard-server-peer@1.11.1':
+    resolution: {integrity: sha512-xhQsQGTnftZao05XnbK0SbqX9kNCZWupjvvrgEYYKNp2bMCBA46H38Pm3bcVXl/NS+Ysx++d/iXuxFSzgxLu+Q==}
+
   '@orpc/standard-server@1.10.3':
     resolution: {integrity: sha512-4ke7cyTkIntFf9PL+Snyo/ZhFn2mUbhmw7xTCQtF1I3yP7SZr21ZGfa6UpJcKMR+le5cVRCV/pjTjeXsDm1glg==}
+
+  '@orpc/standard-server@1.11.1':
+    resolution: {integrity: sha512-Dy4Xfzwp1J1LRz5g22aT+vsCALzSHTtRw5n1r8wirfwb1YXp8V15EPglYgzy1kFDez2g5Tg+iUPnLhXjAkwh4g==}
+
+  '@orpc/tanstack-query@1.11.1':
+    resolution: {integrity: sha512-KT+0fKH3Gx6ZwuGHwYlS9fQn3N89N1SzSJqd2Rq6yRQ5RVBEu6pRtlX2tGUjaFiool28N6USz9Z4hc5NFrGgSw==}
+    peerDependencies:
+      '@orpc/client': 1.11.1
+      '@tanstack/query-core': '>=5.80.2'
 
   '@orpc/zod@1.10.3':
     resolution: {integrity: sha512-3GU0KceoSOyEVe7UwNu1UV0/6a1CacaayxU2flJRUs3NqSFQD0oI/2dFAExAuLVFsdLjD9yWHvxVs+00Njlr/g==}
@@ -1733,6 +1777,14 @@ packages:
 
   '@standard-schema/spec@1.0.0':
     resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
+
+  '@tanstack/query-core@5.90.7':
+    resolution: {integrity: sha512-6PN65csiuTNfBMXqQUxQhCNdtm1rV+9kC9YwWAIKcaxAauq3Wu7p18j3gQY3YIBJU70jT/wzCCZ2uqto/vQgiQ==}
+
+  '@tanstack/react-query@5.90.7':
+    resolution: {integrity: sha512-wAHc/cgKzW7LZNFloThyHnV/AX9gTg3w5yAv0gvQHPZoCnepwqCMtzbuPbb2UvfvO32XZ46e8bPOYbfZhzVnnQ==}
+    peerDependencies:
+      react: ^18 || ^19
 
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
@@ -2924,6 +2976,12 @@ packages:
     peerDependencies:
       react: '*'
       react-native: '*'
+
+  expo-network@8.0.7:
+    resolution: {integrity: sha512-qmISU2tcSHmy1PD3Zd83XXxegcvGPlZSxACTSjE+bD9o3miQRT0HS5YP5MeH97PLiRduGpyUq38kMF5N//mqrQ==}
+    peerDependencies:
+      expo: '*'
+      react: '*'
 
   expo-router@6.0.14:
     resolution: {integrity: sha512-vizLO4SgnMEL+PPs2dXr+etEOuksjue7yUQBCtfCEdqoDkQlB0r35zI7rS34Wt53sxKWSlM2p+038qQEpxtiFw==}
@@ -6782,10 +6840,28 @@ snapshots:
     transitivePeerDependencies:
       - '@opentelemetry/api'
 
+  '@orpc/client@1.11.1':
+    dependencies:
+      '@orpc/shared': 1.11.1
+      '@orpc/standard-server': 1.11.1
+      '@orpc/standard-server-fetch': 1.11.1
+      '@orpc/standard-server-peer': 1.11.1
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
   '@orpc/contract@1.10.3':
     dependencies:
       '@orpc/client': 1.10.3
       '@orpc/shared': 1.10.3
+      '@standard-schema/spec': 1.0.0
+      openapi-types: 12.1.3
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
+  '@orpc/contract@1.11.1':
+    dependencies:
+      '@orpc/client': 1.11.1
+      '@orpc/shared': 1.11.1
       '@standard-schema/spec': 1.0.0
       openapi-types: 12.1.3
     transitivePeerDependencies:
@@ -6855,6 +6931,11 @@ snapshots:
       radash: 12.1.1
       type-fest: 5.2.0
 
+  '@orpc/shared@1.11.1':
+    dependencies:
+      radash: 12.1.1
+      type-fest: 5.2.0
+
   '@orpc/standard-server-aws-lambda@1.10.3':
     dependencies:
       '@orpc/shared': 1.10.3
@@ -6879,6 +6960,13 @@ snapshots:
     transitivePeerDependencies:
       - '@opentelemetry/api'
 
+  '@orpc/standard-server-fetch@1.11.1':
+    dependencies:
+      '@orpc/shared': 1.11.1
+      '@orpc/standard-server': 1.11.1
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
   '@orpc/standard-server-node@1.10.3':
     dependencies:
       '@orpc/shared': 1.10.3
@@ -6894,15 +6982,36 @@ snapshots:
     transitivePeerDependencies:
       - '@opentelemetry/api'
 
+  '@orpc/standard-server-peer@1.11.1':
+    dependencies:
+      '@orpc/shared': 1.11.1
+      '@orpc/standard-server': 1.11.1
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
   '@orpc/standard-server@1.10.3':
     dependencies:
       '@orpc/shared': 1.10.3
     transitivePeerDependencies:
       - '@opentelemetry/api'
 
-  '@orpc/zod@1.10.3(@orpc/contract@1.10.3)(@orpc/server@1.10.3(ws@8.18.3))(ws@8.18.3)(zod@4.1.12)':
+  '@orpc/standard-server@1.11.1':
     dependencies:
-      '@orpc/contract': 1.10.3
+      '@orpc/shared': 1.11.1
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
+  '@orpc/tanstack-query@1.11.1(@orpc/client@1.11.1)(@tanstack/query-core@5.90.7)':
+    dependencies:
+      '@orpc/client': 1.11.1
+      '@orpc/shared': 1.11.1
+      '@tanstack/query-core': 5.90.7
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
+  '@orpc/zod@1.10.3(@orpc/contract@1.11.1)(@orpc/server@1.10.3(ws@8.18.3))(ws@8.18.3)(zod@4.1.12)':
+    dependencies:
+      '@orpc/contract': 1.11.1
       '@orpc/json-schema': 1.10.3(ws@8.18.3)
       '@orpc/openapi': 1.10.3(ws@8.18.3)
       '@orpc/server': 1.10.3(ws@8.18.3)
@@ -7496,6 +7605,13 @@ snapshots:
       '@sinonjs/commons': 3.0.1
 
   '@standard-schema/spec@1.0.0': {}
+
+  '@tanstack/query-core@5.90.7': {}
+
+  '@tanstack/react-query@5.90.7(react@19.1.0)':
+    dependencies:
+      '@tanstack/query-core': 5.90.7
+      react: 19.1.0
 
   '@tybys/wasm-util@0.10.1':
     dependencies:
@@ -8928,6 +9044,11 @@ snapshots:
       invariant: 2.2.4
       react: 19.1.0
       react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
+
+  expo-network@8.0.7(expo@54.0.22)(react@19.1.0):
+    dependencies:
+      expo: 54.0.22(@babel/core@7.28.5)(@expo/metro-runtime@6.1.2)(expo-router@6.0.14)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      react: 19.1.0
 
   expo-router@6.0.14(@expo/metro-runtime@6.1.2)(@types/react@19.1.17)(expo-constants@18.0.10)(expo-linking@8.0.8)(expo@54.0.22)(react-dom@19.1.0(react@19.1.0))(react-native-gesture-handler@2.28.0(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native-reanimated@4.1.3(@babel/core@7.28.5)(react-native-worklets@0.5.1(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native-screens@4.16.0(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0):
     dependencies:
