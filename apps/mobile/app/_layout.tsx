@@ -36,16 +36,16 @@ export default function Layout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SafeAreaView className="flex-1 p-4 bg-white">
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: {
-              backgroundColor: "transparent",
-            },
-          }}
-        />
-      </SafeAreaView>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: {
+            backgroundColor: "transparent",
+          },
+        }}
+      >
+        <Stack.Screen name="(tabs)" />
+      </Stack>
     </QueryClientProvider>
   );
 }
