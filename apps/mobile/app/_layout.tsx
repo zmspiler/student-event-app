@@ -1,4 +1,3 @@
-import { SafeAreaView } from "react-native-safe-area-context";
 import "../global.css";
 import {
   focusManager,
@@ -38,13 +37,17 @@ export default function Layout() {
     <QueryClientProvider client={queryClient}>
       <Stack
         screenOptions={{
-          headerShown: false,
           contentStyle: {
             backgroundColor: "transparent",
           },
         }}
       >
-        <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="(tabs)"
+        />
       </Stack>
     </QueryClientProvider>
   );

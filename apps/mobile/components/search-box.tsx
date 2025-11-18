@@ -5,10 +5,7 @@ export function SearchBox({ placeholder, onChange }: Props) {
     <TextInput
       placeholder={placeholder}
       onChangeText={onChange}
-      style={{
-        borderWidth: 1,
-      }}
-      className="px-4 rounded-xl border-gray-400"
+      className="px-4 rounded-xl border border-gray-400"
     />
   );
 }
