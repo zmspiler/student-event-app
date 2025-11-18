@@ -19,6 +19,7 @@ export default function Layout() {
         name="settings"
         options={{
           title: "Settings",
+          tabBarIcon: () => <FontAwesome name="cog" size={24} color="black" />,
         }}
       />
     </Tabs>
