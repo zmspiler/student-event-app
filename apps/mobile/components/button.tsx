@@ -3,7 +3,7 @@ import { Text, TouchableOpacity } from "react-native";
 export function Button({ title, disabled, onPress }: Props) {
   return (
     <TouchableOpacity
-      className={`w-100 p-3 bg-blue-400 rounded-xl${disabled ? " opacity-50" : ""}`}
+      className={`p-3 bg-blue-400 rounded-xl${disabled ? " opacity-50" : ""}`}
       disabled={disabled}
       onPress={onPress}
     >

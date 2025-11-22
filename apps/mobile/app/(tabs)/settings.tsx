@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
-import { Button, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Button } from "@/components/button";
 import { authClient } from "@/lib/auth-client";
 
 export default function Settings() {
@@ -13,7 +14,7 @@ export default function Settings() {
         <View className="gap-2">
           <Text className="text-4xl">Hi {data.user.name.split(" ")[0]}!</Text>
           <Button
-            title="Logout"
+            title="Log out"
             onPress={async () => {
               await authClient.signOut();
             }}
