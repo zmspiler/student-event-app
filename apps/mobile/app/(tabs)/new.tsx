@@ -13,7 +13,7 @@ export default function NewEvent() {
   const { mutateAsync } = useMutation(
     apiQueryClient.events.create.mutationOptions(),
   );
-  const { Field, Subscribe, handleSubmit } = useForm({
+  const { Field, Subscribe, handleSubmit, reset } = useForm({
     defaultValues,
     validators: {
       onChange: EventSchema,
@@ -25,6 +25,7 @@ export default function NewEvent() {
         location: value.location,
         date: value.date,
       });
+      reset();
       navigate("/(tabs)");
     },
   });
