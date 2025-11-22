@@ -3,13 +3,20 @@ import { useState } from "react";
 import { Button, TextInput, View } from "react-native";
 import { authClient } from "@/lib/auth-client";
 
-export default function Login() {
+export default function Register() {
   const router = useRouter();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
     <View className="p-4 gap-2">
+      <TextInput
+        value={name}
+        onChangeText={setName}
+        placeholder="Name"
+        className="border border-gray-400 rounded-xl px-4"
+      />
       <TextInput
         value={email}
         onChangeText={setEmail}
@@ -24,17 +31,20 @@ export default function Login() {
         secureTextEntry
       />
       <Button
-        title="Login"
+        title="Register"
         onPress={async () => {
-          await authClient.signIn.email(
+          await authClient.signUp.email(
             {
+              name,
               email,
               password,
             },
             {
-              onSuccess: () => router.replace("/(tabs)/settings"),
               onError: (ctx) => {
                 console.log(ctx);
+              },
+              onSuccess: () => {
+                router.replace("/(tabs)");
               },
             },
           );
