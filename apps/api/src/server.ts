@@ -22,6 +22,14 @@ app.use(
   }),
 );
 
+app.use(async (c, next) => {
+  const expoOrigin = c.req.raw.headers.get("expo-origin");
+  if (expoOrigin) {
+    c.req.raw.headers.set("origin", expoOrigin);
+  }
+  await next();
+});
+
 // RPC routes
 app.use("/rpc/*", async (c, next) => {
   const { matched, response } = await handler.handle(c.req.raw, {

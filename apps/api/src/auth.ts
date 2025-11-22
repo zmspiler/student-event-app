@@ -22,5 +22,5 @@ export const auth = betterAuth({
   baseURL: AUTH_URL,
   secret: AUTH_SECRET,
   basePath: "/auth",
-  trustedOrigins: ["http://localhost:3080", "student-event-app://"],
+  trustedOrigins: ["http://localhost:3080", "student-event-app://", "exp://"],
 });
