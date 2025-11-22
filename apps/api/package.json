@@ -7,8 +7,10 @@
     "@orpc/openapi": "^1.10.3",
     "@orpc/server": "^1.10.2",
     "@orpc/zod": "^1.10.3",
-    "@prisma/client": "^6.18.0",
+    "@prisma/adapter-better-sqlite3": "^7.0.0",
+    "@prisma/client": "^7.0.0",
     "better-auth": "^1.4.0",
+    "better-sqlite3": "^12.4.6",
     "dotenv": "^16.4.7",
     "hono": "^4.10.4",
     "zod": "^4.1.12"
@@ -20,7 +22,7 @@
   "type": "module",
   "devDependencies": {
     "@types/node": "^24.9.2",
-    "prisma": "^6.18.0",
+    "prisma": "^7.0.0",
     "prisma-zod-generator": "^1.31.2",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
