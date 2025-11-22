@@ -12,14 +12,36 @@ export default function Home() {
   return (
     <View className="p-4 gap-2">
       <SearchBox placeholder="Find events" />
-      <Button title="Refresh" onPress={() => refetch()} />
+      <Button
+        title="Refresh"
+        disabled={isLoading}
+        onPress={async () => {
+          await refetch();
+        }}
+      />
       {isLoading && <Text className="text-center mt-4">Loading...</Text>}
       {error && (
         <Text className="text-center text-red-500 mt-4">
           Error: {error.message}
         </Text>
       )}
-      {data?.length === 0 && !isLoading && (
+      {data && data?.length > 0 ? (
+        data.map((event) => (
+          <View
+            key={event.id}
+            className="border border-gray-400 rounded-xl px-4 py-3"
+          >
+            <Text className="font-bold text-lg">{event.title}</Text>
+            <Text className="text-gray-600">{event.location}</Text>
+            <Text className="text-gray-600">
+              {new Date(event.date).toDateString()}
+            </Text>
+            {event.description && (
+              <Text className="mt-2 text-gray-800">{event.description}</Text>
+            )}
+          </View>
+        ))
+      ) : (
         <Text className="text-center mt-4">No events found.</Text>
       )}
     </View>
