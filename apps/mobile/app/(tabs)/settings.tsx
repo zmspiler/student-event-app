@@ -1,6 +1,5 @@
 import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Button } from "@/components/button";
 import { authClient } from "@/lib/auth-client";
 
@@ -9,10 +8,10 @@ export default function Settings() {
   const { data } = authClient.useSession();
 
   return (
-    <SafeAreaView className="px-4 gap-2">
+    <View className="p-4 gap-2">
       {data ? (
         <View className="gap-2">
-          <Text className="text-4xl">Hi {data.user.name.split(" ")[0]}!</Text>
+          <Text className="text-4xl">Hi, {data.user.name.split(" ")[0]}!</Text>
           <Button
             title="Log out"
             onPress={async () => {
@@ -29,6 +28,6 @@ export default function Settings() {
           />
         </View>
       )}
-    </SafeAreaView>
+    </View>
   );
 }

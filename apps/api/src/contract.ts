@@ -34,7 +34,11 @@ export const contract = {
         path: "/events",
         successStatus: 201,
       })
-      .input(EventInputSchema)
+      .input(
+        EventInputSchema.extend({
+          date: z.coerce.date(),
+        }),
+      )
       .output(EventSchema),
     update: oc
       .route({

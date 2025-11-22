@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "student-event-app",
-    "slug": "student-event-app",
+    "name": "asd",
+    "slug": "asd",
     "version": "1.0.0",
 
-    "scheme": "student-event-app",
+    "scheme": "asd",
     "platforms": ["ios", "android"],
     "web": {
       "bundler": "metro",
