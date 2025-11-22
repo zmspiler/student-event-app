@@ -7,7 +7,7 @@ import { fetch } from "expo/fetch";
 import { contract } from "../../api/src/contract";
 
 const link = new OpenAPILink(contract, {
-  url: "http://10.0.2.2:3000/rpc",
+  url: `${process.env.EXPO_PUBLIC_API_URL}/rpc`,
   async fetch(request, init) {
     const resp = await fetch(request.url, {
       body: request.method === "GET" ? undefined : await request.blob(),
