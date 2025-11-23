@@ -12,15 +12,18 @@ export default function Home() {
   );
 
   return (
-    <View className="p-4 gap-2">
-      <SearchBox placeholder="Find events" />
-      <Button
-        title="Refresh"
-        disabled={isLoading}
-        onPress={async () => {
-          await refetch();
-        }}
-      />
+    <View className="p-4 gap-4">
+      <View>
+        <SearchBox className="mb-2" placeholder="Find events" />
+        <Button
+          title="Refresh"
+          disabled={isLoading}
+          onPress={async () => {
+            await refetch();
+          }}
+        />
+      </View>
+
       {isLoading && <Text className="text-center mt-4">Loading...</Text>}
       {error && (
         <Text className="text-center text-red-500 mt-4">

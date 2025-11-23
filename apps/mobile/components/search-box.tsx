@@ -1,16 +1,15 @@
 import { TextInput } from "react-native";
 
-export function SearchBox({ placeholder, onChange }: Props) {
+export function SearchBox({ onChange, ...props }: Props) {
   return (
     <TextInput
-      placeholder={placeholder}
+      {...props}
       onChangeText={onChange}
-      className="px-4 rounded-xl border border-gray-400"
+      className={`px-4 rounded-xl border border-gray-400 ${props.className ?? ""}`}
     />
   );
 }
 
 type Props = {
-  placeholder?: string;
   onChange?: (value: string) => void | Promise<void>;
-};
+} & TextInput["props"];
