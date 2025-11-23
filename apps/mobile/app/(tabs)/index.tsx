@@ -1,5 +1,7 @@
+import { FontAwesome } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useRouter } from "expo-router";
+import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { Button } from "@/components/button";
 import { SearchBox } from "@/components/search-box";
@@ -7,21 +9,27 @@ import { apiQueryClient } from "@/lib/api-client";
 
 export default function Home() {
   const { navigate } = useRouter();
+  const [find, setFind] = useState("");
   const { error, data, isLoading, refetch } = useQuery(
-    apiQueryClient.events.getAll.queryOptions(),
+    apiQueryClient.events.getAll.queryOptions({ input: { find } }),
   );
 
   return (
     <View className="p-4 gap-4">
-      <View>
-        <SearchBox className="mb-2" placeholder="Find events" />
-        <Button
-          title="Refresh"
-          disabled={isLoading}
-          onPress={async () => {
-            await refetch();
+      <View className="flex-row items-center gap-2">
+        <SearchBox
+          className="flex-1"
+          placeholder="Find events"
+          onChangeText={async (value) => {
+            setFind(value);
           }}
         />
+        <Pressable
+          className="p-3 bg-blue-400 rounded-xl"
+          onPress={async () => refetch()}
+        >
+          <FontAwesome name="refresh" size={18} color={"white"} />
+        </Pressable>
       </View>
 
       {isLoading && <Text className="text-center mt-4">Loading...</Text>}

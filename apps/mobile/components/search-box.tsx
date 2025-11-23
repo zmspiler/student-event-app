@@ -1,15 +1,27 @@
-import { TextInput } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
+import { Pressable, TextInput, View } from "react-native";
 
-export function SearchBox({ onChange, ...props }: Props) {
+export function SearchBox(props: TextInput["props"]) {
+  const [value, setValue] = useState(props.value ?? "");
+
+  useEffect(() => {
+    props.onChangeText?.(value);
+  }, [value, props.onChangeText]);
+
   return (
-    <TextInput
-      {...props}
-      onChangeText={onChange}
-      className={`px-4 rounded-xl border border-gray-400 ${props.className ?? ""}`}
-    />
+    <View
+      className={`flex-row items-center justify-between rounded-xl border border-gray-400 overflow-hidden ${props.className ?? ""}`}
+    >
+      <TextInput
+        {...props}
+        className="pl-3"
+        value={value}
+        onChangeText={setValue}
+      />
+      <Pressable onPress={() => setValue("")} className="p-3">
+        <FontAwesome name="close" size={18} color={"gray"} />
+      </Pressable>
+    </View>
   );
 }
-
-type Props = {
-  onChange?: (value: string) => void | Promise<void>;
-} & TextInput["props"];
