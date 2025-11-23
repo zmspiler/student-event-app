@@ -26,6 +26,11 @@ export const contract = {
         path: "/events",
         successStatus: 200,
       })
+      .input(
+        z.object({
+          find: z.string().optional(),
+        }),
+      )
       .output(EventSchema.array()),
     create: oc
       .route({

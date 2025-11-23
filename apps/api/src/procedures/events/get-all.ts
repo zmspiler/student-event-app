@@ -1,4 +1,12 @@
 import { base } from "../../middleware/base";
 import { prisma } from "../../prisma";
 
-export default base.events.getAll.handler(async () => prisma.event.findMany());
+export default base.events.getAll.handler(async ({ input }) =>
+  prisma.event.findMany({
+    where: {
+      title: {
+        contains: input.find,
+      },
+    },
+  }),
+);
