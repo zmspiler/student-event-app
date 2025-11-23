@@ -42,9 +42,16 @@ export const contract = {
       .input(
         EventInputSchema.extend({
           date: z.coerce.date(),
-        }),
+          image: z.file().optional(),
+        }).omit({ imageUrl: true }),
       )
-      .output(EventSchema),
+      .output(EventSchema)
+      .errors({
+        INVALID_IMAGE_TYPE: {
+          message: "Invalid image file type. Allowed types are png, jpg, jpeg.",
+          status: 400,
+        },
+      }),
     update: oc
       .route({
         method: "PUT",
@@ -52,12 +59,21 @@ export const contract = {
         path: "/events/{id}",
         successStatus: 200,
       })
-      .input(EventInputSchema.extend({ id: z.cuid() }))
+      .input(
+        EventInputSchema.extend({
+          id: z.cuid(),
+          image: z.file().optional(),
+        }).omit({ imageUrl: true }),
+      )
       .output(EventSchema)
       .errors({
         NOT_FOUND: {
           message: "Entity not found.",
           status: 404,
+        },
+        INVALID_IMAGE_TYPE: {
+          message: "Invalid image file type. Allowed types are png, jpg, jpeg.",
+          status: 400,
         },
       }),
     delete: oc

@@ -1,4 +1,5 @@
 import { serve } from "@hono/node-server";
+import { serveStatic } from '@hono/node-server/serve-static'
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
@@ -13,7 +14,7 @@ app.use(logger());
 app.use(
   "*",
   cors({
-    origin: CLIENT_ORIGIN,
+    origin: CLIENT_ORIGIN || "*",
     allowHeaders: ["Content-Type", "Authorization"],
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     exposeHeaders: ["Content-Length"],
@@ -21,6 +22,8 @@ app.use(
     credentials: true,
   }),
 );
+
+app.use("/static/*", serveStatic({ root: "./public" }));
 
 app.use(async (c, next) => {
   const expoOrigin = c.req.raw.headers.get("expo-origin");
