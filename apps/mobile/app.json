@@ -5,7 +5,7 @@
     "version": "1.0.0",
 
     "scheme": "asd",
-    "platforms": ["ios", "android"],
+    "platforms": ["web", "android"],
     "web": {
       "bundler": "metro",
       "output": "static",
