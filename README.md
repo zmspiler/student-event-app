@@ -29,13 +29,13 @@ Build in React Native for convenience (sharing types between backend and mobile)
 Run this in the root folder of the project.
 ```bash
 # Install dependencies
-pnpm install
+npm install
 
 # Set up env files
 cd apps/api && cp .env.example .env
 
 # Generate prisma types
-cd apps/api && pnpm prisma generate && pnpm prisma migrate dev
+cd apps/api && npx prisma generate && npx prisma migrate dev
 ```
 
 ### Running the projects

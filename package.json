@@ -5,8 +5,11 @@
   },
   "scripts": {
     "check": "biome check .",
-    "check:fix": "biome check --write ."
+    "check:fix": "biome check --write .",
+    "dev": "turbo dev"
   },
   "private": true,
-  "packageManager": "pnpm@10.20.0"
+  "workspaces": [
+    "apps/*"
+  ]
 }
