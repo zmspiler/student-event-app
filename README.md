@@ -22,7 +22,7 @@ Build in React Native for convenience (sharing types between backend and mobile)
 ## Developer setup
 
 ### Prerequisites
-- Installed [NodeJS](https://nodejs.org/en) and [PNPM](https://pnpm.io/) on your system
+- Installed [NodeJS](https://nodejs.org/en)
 - Set up [Expo development environment](https://docs.expo.dev/get-started/set-up-your-environment/) for android
 
 ### Setup script
