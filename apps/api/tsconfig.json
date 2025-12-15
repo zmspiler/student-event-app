@@ -15,6 +15,7 @@
     "noEmit": true, // or `emitDeclarationOnly`
     "allowImportingTsExtensions": true,
     "allowArbitraryExtensions": true,
-    "verbatimModuleSyntax": true // or `isolatedModules`
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true
   }
 }
