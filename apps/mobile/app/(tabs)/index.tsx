@@ -1,9 +1,8 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
-import { Button } from "@/components/button";
 import { SearchBox } from "@/components/search-box";
 import { apiQueryClient } from "@/lib/api-client";
 

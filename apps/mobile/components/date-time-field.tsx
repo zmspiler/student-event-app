@@ -1,12 +1,11 @@
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 
 export function DateTimeField({
   value = new Date(),
   placeholder = "Choose date",
   onChange,
-  mode = "datetime",
   is24Hour,
 }: Props) {
   const [date, setDate] = useState<Date | undefined>(undefined);

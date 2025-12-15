@@ -2,7 +2,7 @@ import { ORPCError } from "@orpc/contract";
 import { auth } from "@/utils/auth";
 import { base } from "./base";
 
-const middleware = base.middleware(async ({ context, errors, next }) => {
+const middleware = base.middleware(async ({ context, next }) => {
   if (!context.reqHeaders) {
     throw new ORPCError("UNAUTHORIZED");
   }

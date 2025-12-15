@@ -7,7 +7,10 @@ import { join } from "node:path";
  * @param file - The file to save
  * @returns The file name
  */
-export async function saveFile(file: File, subdirectory: string = ""): Promise<string> {
+export async function saveFile(
+  file: File,
+  subdirectory: string = "",
+): Promise<string> {
   const publicDir = join(process.cwd(), "public", subdirectory);
 
   // Ensure the uploads directory exists
@@ -31,7 +34,10 @@ export async function saveFile(file: File, subdirectory: string = ""): Promise<s
  * @param allowedExtensions - Array of allowed image file extensions
  * @returns The file name
  */
-export async function saveImage(file: File, allowedExtensions: ImageExtension[]): Promise<string> {
+export async function saveImage(
+  file: File,
+  allowedExtensions: ImageExtension[],
+): Promise<string> {
   const ext = file.name.split(".").pop()?.toLowerCase();
   if (!ext || !allowedExtensions.includes(ext as ImageExtension)) {
     throw new Error("Invalid image file type.");
@@ -40,4 +46,4 @@ export async function saveImage(file: File, allowedExtensions: ImageExtension[])
   return saveFile(file, "images");
 }
 
-type ImageExtension = 'png' | 'jpg' | 'jpeg' | 'gif' | 'webp' | 'bmp' | 'tiff';
+type ImageExtension = "png" | "jpg" | "jpeg" | "gif" | "webp" | "bmp" | "tiff";

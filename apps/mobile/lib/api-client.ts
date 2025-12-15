@@ -1,10 +1,9 @@
-import { createORPCClient, ORPCError, onError } from "@orpc/client";
-import { type ContractRouterClient, ValidationError } from "@orpc/contract";
+import { createORPCClient, onError } from "@orpc/client";
+import type { ContractRouterClient } from "@orpc/contract";
 import type { JsonifiedClient } from "@orpc/openapi-client";
 import { OpenAPILink } from "@orpc/openapi-client/fetch";
 import { createTanstackQueryUtils } from "@orpc/tanstack-query";
 import { fetch } from "expo/fetch";
-import z from "zod";
 import { contract } from "../../api/src/contract";
 import { authClient } from "./auth-client";
 
