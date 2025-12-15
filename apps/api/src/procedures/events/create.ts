@@ -1,6 +1,6 @@
-import { requireAuth } from "../../middleware/require-auth";
-import { prisma } from "../../prisma";
-import { saveImage } from "../../utils/files";
+import { requireAuth } from "@/middleware/require-auth";
+import { saveImage } from "@/utils/files";
+import { prisma } from "@/utils/prisma";
 
 export default requireAuth.events.create.handler(async ({ input, errors }) => {
   let imageName: string | undefined;

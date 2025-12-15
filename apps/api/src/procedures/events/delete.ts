@@ -1,5 +1,5 @@
-import { requireAuth } from "../../middleware/require-auth";
-import { prisma } from "../../prisma";
+import { requireAuth } from "@/middleware/require-auth";
+import { prisma } from "@/utils/prisma";
 
 export default requireAuth.events.delete.handler(async ({ input, errors }) => {
   const event = await prisma.event.delete({

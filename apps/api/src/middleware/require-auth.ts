@@ -1,5 +1,5 @@
 import { ORPCError } from "@orpc/contract";
-import { auth } from "../auth";
+import { auth } from "@/utils/auth";
 import { base } from "./base";
 
 const middleware = base.middleware(async ({ context, errors, next }) => {

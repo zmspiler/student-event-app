@@ -1,5 +1,5 @@
-import { base } from "../../middleware/base";
-import { prisma } from "../../prisma";
+import { base } from "@/middleware/base";
+import { prisma } from "@/utils/prisma";
 
 export default base.events.getAll.handler(async ({ input }) =>
   prisma.event.findMany({

@@ -1,11 +1,11 @@
 import { serve } from "@hono/node-server";
-import { serveStatic } from '@hono/node-server/serve-static'
+import { serveStatic } from "@hono/node-server/serve-static";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
-import { auth } from "./auth";
-import { CLIENT_ORIGIN } from "./environment";
+import { auth } from "@/utils/auth";
 import { handler } from "./handler";
+import { CLIENT_ORIGIN } from "./utils/environment";
 
 const app = new Hono();
 
