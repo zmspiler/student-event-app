@@ -1,9 +1,10 @@
+import { ORPCError } from "@orpc/contract";
 import { auth } from "../auth";
 import { base } from "./base";
 
 const middleware = base.middleware(async ({ context, errors, next }) => {
   if (!context.reqHeaders) {
-    throw errors.UNAUTHORIZED();
+    throw new ORPCError("UNAUTHORIZED");
   }
 
   const session = await auth.api.getSession({
@@ -11,7 +12,7 @@ const middleware = base.middleware(async ({ context, errors, next }) => {
   });
 
   if (!session) {
-    throw errors.UNAUTHORIZED();
+    throw new ORPCError("UNAUTHORIZED");
   }
 
   return next({
