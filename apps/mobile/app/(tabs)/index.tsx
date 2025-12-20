@@ -1,8 +1,9 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
+import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { FlatList, Pressable, Text, View } from "react-native";
 import { SearchBox } from "@/components/search-box";
 import { apiQueryClient } from "@/lib/api-client";
 
@@ -30,38 +31,46 @@ export default function Home() {
           <FontAwesome name="refresh" size={18} color={"white"} />
         </Pressable>
       </View>
-
       {isLoading && <Text className="text-center mt-4">Loading...</Text>}
       {error && (
         <Text className="text-center text-red-500 mt-4">
           Error: {error.message}
         </Text>
       )}
-      {data && data?.length > 0 ? (
-        data.map((event) => (
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
           <Pressable
-            className="border border-gray-400 rounded-xl px-4 py-3"
-            key={event.id}
+            className="border border-gray-400 rounded-xl mb-4 overflow-hidden"
             onPress={() =>
               navigate({
                 pathname: "/events/[eventId]",
-                params: { eventId: event.id },
+                params: { eventId: item.id },
               })
             }
           >
-            <Text className="font-bold text-lg">{event.title}</Text>
-            <Text className="text-gray-600">{event.location}</Text>
-            <Text className="text-gray-600">
-              {new Date(event.date).toDateString()}
-            </Text>
-            {event.description && (
-              <Text className="mt-2 text-gray-800">{event.description}</Text>
+            {item.imageUrl && (
+              <Image
+                source={{
+                  uri: `${process.env.EXPO_PUBLIC_API_URL}${item.imageUrl}`,
+                }}
+                style={{ width: "100%", height: 150 }}
+              />
             )}
+            <View className="px-4 py-3">
+              <Text className="font-bold text-lg">{item.title}</Text>
+              <Text className="text-gray-600">{item.location}</Text>
+              <Text className="text-gray-600">
+                {new Date(item.date).toDateString()}
+              </Text>
+              {item.description && (
+                <Text className="mt-2 text-gray-800">{item.description}</Text>
+              )}
+            </View>
           </Pressable>
-        ))
-      ) : (
-        <Text className="text-center mt-4">No events found.</Text>
-      )}
+        )}
+      />
     </View>
   );
 }

@@ -5,6 +5,7 @@ import { View } from "react-native";
 import z from "zod";
 import { Button } from "@/components/button";
 import { DateTimeField } from "@/components/date-time-field";
+import ImageField from "@/components/image-field";
 import { TextField } from "@/components/text-field";
 import { apiQueryClient } from "@/lib/api-client";
 
@@ -24,6 +25,7 @@ export default function NewEvent() {
         description: value.description ?? "",
         location: value.location,
         date: value.date,
+        imageBase64: value.image,
       });
       reset();
       navigate("/(tabs)");
@@ -49,6 +51,9 @@ export default function NewEvent() {
             onChangeText={field.handleChange}
           />
         )}
+      </Field>
+      <Field name="image">
+        {(field) => <ImageField onChange={field.handleChange} />}
       </Field>
       <Field name="date">
         {(field) => (
@@ -96,6 +101,7 @@ const EventSchema = z.object({
   description: z.string().nullable(),
   location: z.string().min(1, "Location is required"),
   date: z.date().min(new Date(), "Date must be in the future"),
+  image: z.base64().optional(),
 });
 
 type EventInput = z.infer<typeof EventSchema>;
@@ -105,4 +111,5 @@ const defaultValues: EventInput = {
   description: null,
   date: new Date(),
   location: "",
+  image: undefined,
 };
