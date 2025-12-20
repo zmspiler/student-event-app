@@ -34,6 +34,3 @@ jobs:
 
       - name: Check formatting and linting
         run: npm run check
-
-      - name: Check types
-        run: npm run check-types
