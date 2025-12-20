@@ -43,7 +43,7 @@ export const contract = {
         EventInputSchema.extend({
           date: z.coerce.date(),
           imageBase64: z.base64().optional(),
-        }).omit({ imageUrl: true }),
+        }).omit({ imageUrl: true, owner: true, ownerId: true }),
       )
       .output(EventSchema)
       .errors({
@@ -63,7 +63,7 @@ export const contract = {
         EventInputSchema.extend({
           id: z.cuid(),
           imageBase64: z.base64().optional(),
-        }).omit({ imageUrl: true }),
+        }).omit({ imageUrl: true, owner: true, ownerId: true }),
       )
       .output(EventSchema)
       .errors({
