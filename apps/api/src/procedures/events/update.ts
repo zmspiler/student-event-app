@@ -1,24 +1,26 @@
 import { requireAuth } from "@/middleware/require-auth";
-import { saveImage } from "@/utils/files";
+import { saveBase64Image } from "@/utils/files";
 import { prisma } from "@/utils/prisma";
 
-export default requireAuth.events.update.handler(async ({ input, errors }) => {
-  let imageName: string | undefined;
+export default requireAuth.events.update.handler(
+  async ({ input: { imageBase64, ...input }, errors }) => {
+    let imageName: string | undefined;
 
-  if (input.image) {
-    try {
-      imageName = await saveImage(input.image, ["png", "jpg", "jpeg"]);
-    } catch {
-      throw errors.INVALID_IMAGE_TYPE();
+    if (imageBase64) {
+      try {
+        imageName = await saveBase64Image(imageBase64, "png");
+      } catch {
+        throw errors.INVALID_IMAGE_TYPE();
+      }
     }
-  }
 
-  const event = await prisma.event.update({
-    where: { id: input.id },
-    data: {
-      ...input,
-      imageUrl: imageName ? `/images/${imageName}` : undefined,
-    },
-  });
-  return event;
-});
+    const event = await prisma.event.update({
+      where: { id: input.id },
+      data: {
+        ...input,
+        imageUrl: imageName ? `/uploads/images/${imageName}` : undefined,
+      },
+    });
+    return event;
+  },
+);

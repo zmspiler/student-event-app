@@ -5,11 +5,13 @@
   },
   "scripts": {
     "check": "biome check .",
+    "check-types": "turbo check-types",
     "check:fix": "biome check --write .",
     "dev": "turbo dev"
   },
   "private": true,
   "workspaces": [
     "apps/*"
-  ]
+  ],
+  "packageManager": "npm@11.7.0"
 }

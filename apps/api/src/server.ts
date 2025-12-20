@@ -5,7 +5,7 @@ import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { auth } from "@/utils/auth";
 import { handler } from "./handler";
-import { CLIENT_ORIGIN } from "./utils/environment";
+import { CLIENT_ORIGIN, PORT } from "./utils/environment";
 
 const app = new Hono();
 
@@ -23,7 +23,13 @@ app.use(
   }),
 );
 
-app.use("/static/*", serveStatic({ root: "./public" }));
+app.use(
+  "/uploads/*",
+  serveStatic({
+    root: "./public/uploads",
+    rewriteRequestPath: (path) => path.replace(/^\/uploads/, ""),
+  }),
+);
 
 app.use(async (c, next) => {
   const expoOrigin = c.req.raw.headers.get("expo-origin");
@@ -54,7 +60,7 @@ app.on(["POST", "GET"], "/auth/*", (c) => {
 
 const server = serve({
   fetch: app.fetch,
-  port: 3000,
+  port: PORT,
 });
 
 server.on("listening", () => {

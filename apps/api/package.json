@@ -16,7 +16,8 @@
     "zod": "^4.1.12"
   },
   "scripts": {
-    "dev": "tsx watch ./src/server.ts"
+    "dev": "tsx watch ./src/server.ts",
+    "check-types": "tsc --noEmit"
   },
   "private": true,
   "type": "module",
@@ -26,5 +27,6 @@
     "prisma-zod-generator": "^2.1.2",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
-  }
+  },
+  "packageManager": "npm@11.7.0"
 }

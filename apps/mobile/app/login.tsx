@@ -27,7 +27,6 @@ export default function Login() {
           onSuccess: () => router.replace("/(tabs)/settings"),
           onError: (ctx) => {
             alert(ctx.error.message);
-            console.log(ctx);
           },
         },
       );
