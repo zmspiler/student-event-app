@@ -17,6 +17,13 @@ export default requireAuth.events.update.handler(
         throw errors.INVALID_IMAGE_TYPE();
       }
     }
+    if (imageBase64) {
+      try {
+        imageName = await saveBase64Image(imageBase64, "png");
+      } catch {
+        throw errors.INVALID_IMAGE_TYPE();
+      }
+    }
 
     const event = await prisma.event.update({
       where: { id: input.id },
