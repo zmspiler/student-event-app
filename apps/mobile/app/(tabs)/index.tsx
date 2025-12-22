@@ -2,17 +2,30 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
+import { useDebounce } from "use-debounce";
 import { SearchBox } from "@/components/search-box";
 import { apiQueryClient } from "@/lib/api-client";
 
 export default function Home() {
   const { navigate } = useRouter();
   const [find, setFind] = useState("");
+  const [debouncedFind] = useDebounce(find, 250);
   const { error, data, isLoading, refetch } = useQuery(
-    apiQueryClient.events.getAll.queryOptions({ input: { find } }),
+    apiQueryClient.events.getAll.queryOptions({
+      input: { find: debouncedFind },
+    }),
   );
+
+  // Debounce refetch when 'find' changes
+  // Only refetch 200ms after the user stops typing
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      refetch();
+    }, 200);
+    return () => clearTimeout(handler);
+  }, [refetch]);
 
   return (
     <View className="p-4 gap-4">
@@ -20,9 +33,7 @@ export default function Home() {
         <SearchBox
           className="flex-1"
           placeholder="Find events"
-          onChangeText={async (value) => {
-            setFind(value);
-          }}
+          onChangeText={setFind}
         />
         <Pressable
           className="p-3 bg-blue-400 rounded-xl"
