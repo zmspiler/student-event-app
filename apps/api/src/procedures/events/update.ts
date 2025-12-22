@@ -3,9 +3,20 @@ import { saveBase64Image } from "@/utils/files";
 import { prisma } from "@/utils/prisma";
 
 export default requireAuth.events.update.handler(
-  async ({ input: { imageBase64, ...input }, errors }) => {
+  async ({
+    input: { imageBase64, ...input },
+    errors,
+    context: { session },
+  }) => {
     let imageName: string | undefined;
 
+    if (imageBase64) {
+      try {
+        imageName = await saveBase64Image(imageBase64, "png");
+      } catch {
+        throw errors.INVALID_IMAGE_TYPE();
+      }
+    }
     if (imageBase64) {
       try {
         imageName = await saveBase64Image(imageBase64, "png");
@@ -18,6 +29,7 @@ export default requireAuth.events.update.handler(
       where: { id: input.id },
       data: {
         ...input,
+        ownerId: session.user.id,
         imageUrl: imageName ? `/uploads/images/${imageName}` : undefined,
       },
     });

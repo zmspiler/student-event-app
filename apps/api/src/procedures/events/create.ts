@@ -3,7 +3,11 @@ import { saveBase64Image } from "@/utils/files";
 import { prisma } from "@/utils/prisma";
 
 export default requireAuth.events.create.handler(
-  async ({ input: { imageBase64, ...input }, errors }) => {
+  async ({
+    input: { imageBase64, ...input },
+    errors,
+    context: { session },
+  }) => {
     let imageName: string | undefined;
 
     if (imageBase64) {
@@ -17,6 +21,7 @@ export default requireAuth.events.create.handler(
     const event = await prisma.event.create({
       data: {
         ...input,
+        ownerId: session.user.id,
         imageUrl: imageName ? `/uploads/images/${imageName}` : undefined,
       },
     });

@@ -1,11 +1,22 @@
-import { Text, TouchableOpacity } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  type TouchableOpacityProps,
+} from "react-native";
 
-export function Button({ title, disabled, onPress }: Props) {
+export function Button({
+  title,
+  disabled,
+  onPress,
+  className,
+  ...props
+}: Props) {
   return (
     <TouchableOpacity
-      className={`p-3 bg-blue-400 rounded-xl${disabled ? " opacity-50" : ""}`}
+      className={`p-3 bg-blue-400 rounded-xl${disabled ? " opacity-50" : ""} ${className}`}
       disabled={disabled}
       onPress={onPress}
+      {...props}
     >
       <Text className={`mx-auto text-white${disabled ? " text-black" : ""}`}>
         {title}
@@ -18,4 +29,5 @@ type Props = {
   title: string;
   disabled?: boolean;
   onPress?: () => void | Promise<void>;
-};
+} & TouchableOpacityProps;
+``;
