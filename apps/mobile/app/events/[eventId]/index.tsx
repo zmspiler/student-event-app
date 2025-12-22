@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { Image } from "expo-image";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Pressable, Text, View } from "react-native";
+import { Button } from "@/components/button";
 import { apiQueryClient } from "@/lib/api-client";
 import { authClient } from "@/lib/auth-client";
 
@@ -22,7 +23,7 @@ export default function Index() {
   );
 
   return (
-    <View>
+    <View className="h-full">
       <View>
         {data?.imageUrl && (
           <Image
@@ -62,6 +63,10 @@ export default function Index() {
           </Pressable>
         </View>
       )}
+
+      <View className="absolute bottom-10 left-0 right-0 items-center pb-4">
+        <Button title="Visit event page" className="bg-orange-800" />
+      </View>
     </View>
   );
 }
