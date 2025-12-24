@@ -1,12 +1,16 @@
+import { FontAwesome } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
-import { Alert, View } from "react-native";
-import { Button } from "./button";
+import { Alert, Pressable, Text, View } from "react-native";
 
 export default function ImageField({ onChange }: Props) {
   const [imageUri, setImageUri] = useState<string | undefined>(undefined);
 
+  const clearImage = () => {
+    setImageUri(undefined);
+    onChange?.(undefined);
+  };
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library.
     // Manually request permissions for videos on iOS when `allowsEditing` is set to `false`
@@ -39,18 +43,24 @@ export default function ImageField({ onChange }: Props) {
   };
 
   return (
-    <View>
-      <Button title="Pick the event image" onPress={pickImage} />
-      {imageUri && (
+    <Pressable
+      className="border border-gray-400 rounded-xl overflow-hidden w-full"
+      style={{ aspectRatio: 16 / 9 }}
+      onPress={imageUri ? clearImage : pickImage}
+    >
+      {imageUri ? (
         <Image
-          source={{
-            uri: imageUri,
-          }}
-          contentFit={"scale-down"}
-          style={{ width: "100%", height: 200 }}
+          source={{ uri: imageUri }}
+          style={{ width: "100%", height: "100%" }}
+          contentFit="cover"
         />
+      ) : (
+        <View className="flex-row gap-2 justify-center items-center h-full">
+          <FontAwesome name={"plus-circle"} color={"gray"} />
+          <Text className="text-gray-500">Press to select an image</Text>
+        </View>
       )}
-    </View>
+    </Pressable>
   );
 }
 

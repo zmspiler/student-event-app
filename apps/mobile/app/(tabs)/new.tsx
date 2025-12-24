@@ -4,9 +4,10 @@ import { useRouter } from "expo-router";
 import { View } from "react-native";
 import z from "zod";
 import { Button } from "@/components/button";
-import { DateTimeField } from "@/components/date-time-field";
+import { DateTimeField } from "@/components/date-field";
 import ImageField from "@/components/image-field";
 import { TextField } from "@/components/text-field";
+import { TimeField } from "@/components/time-field";
 import { apiQueryClient } from "@/lib/api-client";
 
 export default function NewEvent() {
@@ -58,8 +59,27 @@ export default function NewEvent() {
       <Field name="date">
         {(field) => (
           <DateTimeField
+            minimumDate={new Date()}
             value={field.state.value}
             onChange={field.handleChange}
+          />
+        )}
+      </Field>
+      <Field name="time">
+        {(field) => (
+          <TimeField
+            minimumDate={new Date(Date.now() + 60 * 60 * 1000)}
+            value={field.state.value}
+            onChange={field.handleChange}
+          />
+        )}
+      </Field>
+      <Field name="url">
+        {(field) => (
+          <TextField
+            placeholder="URL"
+            value={field.state.value}
+            onChangeText={field.handleChange}
           />
         )}
       </Field>
@@ -100,8 +120,10 @@ const EventSchema = z.object({
   title: z.string().min(1, "Event name is required"),
   description: z.string().nullable(),
   location: z.string().min(1, "Location is required"),
-  date: z.date().min(new Date(), "Date must be in the future"),
+  date: z.date().min(new Date(), "Date must be at least 1 hour from now"),
+  time: z.date().min(new Date(), "Time must be at least 1 hour from now"),
   image: z.base64().optional(),
+  url: z.url().optional(),
 });
 
 type EventInput = z.infer<typeof EventSchema>;
@@ -109,7 +131,7 @@ type EventInput = z.infer<typeof EventSchema>;
 const defaultValues: EventInput = {
   title: "",
   description: null,
-  date: new Date(),
+  date: undefined!,
   location: "",
-  image: undefined,
+  time: undefined!,
 };

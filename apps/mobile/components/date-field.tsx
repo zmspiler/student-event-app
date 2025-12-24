@@ -4,9 +4,11 @@ import { Text, TouchableOpacity } from "react-native";
 
 export function DateTimeField({
   value = new Date(),
-  placeholder = "Choose date",
+  placeholder = "Date",
   onChange,
   is24Hour,
+  minimumDate,
+  maximumDate,
 }: Props) {
   const [date, setDate] = useState<Date | undefined>(undefined);
 
@@ -14,6 +16,8 @@ export function DateTimeField({
     DateTimePickerAndroid.open({
       mode: "date",
       value,
+      minimumDate,
+      maximumDate,
       is24Hour,
       onChange: (event, newDate) => {
         if (event.type === "dismissed") return;
@@ -44,4 +48,6 @@ type Props = {
   onChange?: (date: Date) => void | Promise<void>;
   mode?: "date" | "time" | "datetime" | "countdown";
   is24Hour?: boolean;
+  minimumDate?: Date;
+  maximumDate?: Date;
 };
