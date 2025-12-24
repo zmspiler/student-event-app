@@ -6,6 +6,7 @@ import { Pressable, Text, View } from "react-native";
 import { Button } from "@/components/button";
 import { apiQueryClient } from "@/lib/api-client";
 import { authClient } from "@/lib/auth-client";
+import { API_URL } from "@/lib/environment";
 
 export default function Index() {
   const { eventId } = useLocalSearchParams();
@@ -28,7 +29,7 @@ export default function Index() {
         {data?.imageUrl && (
           <Image
             source={{
-              uri: `${process.env.EXPO_PUBLIC_API_URL}${data.imageUrl}`,
+              uri: `${API_URL}${data.imageUrl}`,
             }}
             contentFit={"cover"}
             style={{ width: "100%", height: 200 }}

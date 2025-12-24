@@ -7,6 +7,7 @@ import { FlatList, Pressable, Text, View } from "react-native";
 import { useDebounce } from "use-debounce";
 import { SearchBox } from "@/components/search-box";
 import { apiQueryClient } from "@/lib/api-client";
+import { API_URL } from "@/lib/environment";
 
 export default function Home() {
   const { navigate } = useRouter();
@@ -64,7 +65,7 @@ export default function Home() {
             {item.imageUrl && (
               <Image
                 source={{
-                  uri: `${process.env.EXPO_PUBLIC_API_URL}${item.imageUrl}`,
+                  uri: `${API_URL}${item.imageUrl}`,
                 }}
                 style={{ width: "100%", height: 150 }}
               />
