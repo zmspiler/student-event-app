@@ -1,12 +1,13 @@
 import { OpenAPIHandler } from "@orpc/openapi/fetch";
 import { OpenAPIReferencePlugin } from "@orpc/openapi/plugins";
-import { onError } from "@orpc/server";
+import { ORPCError, onError } from "@orpc/server";
 import {
   RequestHeadersPlugin,
   ResponseHeadersPlugin,
 } from "@orpc/server/plugins";
 import { ZodSmartCoercionPlugin } from "@orpc/zod";
 import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
+import z from "zod";
 import { router } from "./router";
 
 export const handler = new OpenAPIHandler(router, {
@@ -27,5 +28,11 @@ export const handler = new OpenAPIHandler(router, {
       },
     }),
   ],
-  interceptors: [onError((error) => console.log(error))],
+  interceptors: [
+    onError((error) => {
+      if (error instanceof ORPCError) {
+        console.log(error.cause);
+      }
+    }),
+  ],
 });

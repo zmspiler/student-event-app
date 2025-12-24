@@ -3,19 +3,19 @@ import { useState } from "react";
 import { Text, TouchableOpacity } from "react-native";
 
 export function DateTimeField({
-  value = new Date(),
+  value,
   placeholder = "Date",
   onChange,
   is24Hour,
   minimumDate,
   maximumDate,
 }: Props) {
-  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [date, setDate] = useState<Date | undefined>(value);
 
   const showPicker = () =>
     DateTimePickerAndroid.open({
       mode: "date",
-      value,
+      value: date || new Date(),
       minimumDate,
       maximumDate,
       is24Hour,

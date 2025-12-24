@@ -1,6 +1,4 @@
 import { useForm } from "@tanstack/react-form";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "expo-router";
 import { View } from "react-native";
 import z from "zod";
 import { Button } from "@/components/button";
@@ -8,38 +6,14 @@ import { DateTimeField } from "@/components/date-field";
 import ImageField from "@/components/image-field";
 import { TextField } from "@/components/text-field";
 import { TimeField } from "@/components/time-field";
-import { apiQueryClient } from "@/lib/api-client";
 
-export default function NewEvent() {
-  const { navigate } = useRouter();
-  const { mutateAsync } = useMutation(
-    apiQueryClient.events.create.mutationOptions(),
-  );
-  const { Field, Subscribe, handleSubmit, reset } = useForm({
-    defaultValues,
+export function EventForm({ value, onSubmit, mode = "create" }: Props) {
+  const { Field, Subscribe, handleSubmit } = useForm({
+    defaultValues: value ?? defaultValues,
     validators: {
       onChange: EventSchema,
     },
-    onSubmit: async ({ value }) => {
-      const dateTime = new Date(
-        value.date.getFullYear(),
-        value.date.getMonth(),
-        value.date.getDate(),
-        value.time.getHours(),
-        value.time.getMinutes(),
-      );
-
-      await mutateAsync({
-        title: value.title,
-        description: value.description ?? "",
-        location: value.location,
-        date: dateTime,
-        imageBase64: value.image,
-        url: value.url,
-      });
-      reset();
-      navigate("/(tabs)");
-    },
+    onSubmit: onSubmit ? ({ value }) => onSubmit(value) : undefined,
   });
 
   return (
@@ -115,7 +89,7 @@ export default function NewEvent() {
         ]}
         children={([canSubmit, isSubmitting, isPristine]) => (
           <Button
-            title="Create event"
+            title={`${mode.toUpperCase()} EVENT`}
             disabled={!canSubmit || isSubmitting || isPristine}
             onPress={handleSubmit}
           />
@@ -143,4 +117,10 @@ const defaultValues: EventInput = {
   date: undefined!,
   location: "",
   time: undefined!,
+};
+
+type Props = {
+  value?: EventInput;
+  onSubmit?: (value: EventInput) => void;
+  mode?: "create" | "edit";
 };

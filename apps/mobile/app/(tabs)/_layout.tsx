@@ -15,9 +15,9 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name="new"
+        name="new-event"
         options={{
-          href: data && !error ? "/new" : null,
+          href: data && !error ? "/new-event" : null,
           title: "New Event",
           tabBarIcon: () => <FontAwesome name="plus" size={24} color="black" />,
         }}

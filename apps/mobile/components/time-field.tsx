@@ -3,21 +3,21 @@ import { useState } from "react";
 import { Text, TouchableOpacity } from "react-native";
 
 export function TimeField({
-  value = new Date(),
+  value,
   placeholder = "Time",
   onChange,
   is24Hour,
   minimumDate,
   maximumDate,
 }: Props) {
-  const [time, setTime] = useState<Date | undefined>(undefined);
+  const [time, setTime] = useState<Date | undefined>(value);
 
   const showPicker = () =>
     DateTimePickerAndroid.open({
       mode: "time",
       minimumDate,
       maximumDate,
-      value,
+      value: time || new Date(),
       is24Hour,
       onChange: (event, newTime) => {
         if (event.type === "dismissed") return;

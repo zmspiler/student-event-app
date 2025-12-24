@@ -67,17 +67,30 @@ export default function Index() {
               />
             )}
             {data && data.ownerId === session?.user.id && (
-              <Pressable
-                className="bg-blue-400 p-4 rounded-xl"
-                onPress={async () => {
-                  if (eventId) {
-                    await mutateAsync({ id: data.id });
-                    navigate("/(tabs)");
+              <View className="flex-row gap-2">
+                <Pressable
+                  className="bg-gray-400 p-4 rounded-xl"
+                  onPress={() =>
+                    navigate({
+                      pathname: "/events/[eventId]/edit",
+                      params: { eventId: data.id },
+                    })
                   }
-                }}
-              >
-                <FontAwesome name="close" size={18} color={"white"} />
-              </Pressable>
+                >
+                  <FontAwesome name="pencil" size={18} color={"white"} />
+                </Pressable>
+                <Pressable
+                  className="bg-gray-400 p-4 rounded-xl"
+                  onPress={async () => {
+                    if (eventId) {
+                      await mutateAsync({ id: data.id });
+                      navigate("/(tabs)");
+                    }
+                  }}
+                >
+                  <FontAwesome name="close" size={18} color={"white"} />
+                </Pressable>
+              </View>
             )}
           </View>
         </View>

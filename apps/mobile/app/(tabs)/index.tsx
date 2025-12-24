@@ -76,9 +76,6 @@ export default function Home() {
               <Text className="text-gray-600">
                 {new Date(item.date).toDateString()}
               </Text>
-              {item.description && (
-                <Text className="mt-2 text-gray-800">{item.description}</Text>
-              )}
             </View>
           </Pressable>
         )}
