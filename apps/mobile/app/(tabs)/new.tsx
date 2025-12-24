@@ -21,12 +21,21 @@ export default function NewEvent() {
       onChange: EventSchema,
     },
     onSubmit: async ({ value }) => {
+      const dateTime = new Date(
+        value.date.getFullYear(),
+        value.date.getMonth(),
+        value.date.getDate(),
+        value.time.getHours(),
+        value.time.getMinutes(),
+      );
+
       await mutateAsync({
         title: value.title,
         description: value.description ?? "",
         location: value.location,
-        date: value.date,
+        date: dateTime,
         imageBase64: value.image,
+        url: value.url,
       });
       reset();
       navigate("/(tabs)");

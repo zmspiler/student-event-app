@@ -9,6 +9,7 @@ export function Button({
   disabled,
   onPress,
   className,
+  textClassName,
   ...props
 }: Props) {
   return (
@@ -18,7 +19,9 @@ export function Button({
       onPress={onPress}
       {...props}
     >
-      <Text className={`mx-auto text-white${disabled ? " text-black" : ""}`}>
+      <Text
+        className={`mx-auto text-white${disabled ? " text-black" : ""} ${textClassName}`}
+      >
         {title}
       </Text>
     </TouchableOpacity>
@@ -29,5 +32,6 @@ type Props = {
   title: string;
   disabled?: boolean;
   onPress?: () => void | Promise<void>;
+  textClassName?: string;
 } & TouchableOpacityProps;
 ``;
