@@ -9,7 +9,7 @@ export default function MyEvents() {
   const auth = authClient.useSession();
   const { data } = useQuery(
     apiQueryClient.events.getAll.queryOptions({
-      input: { ownerId: auth.data?.user?.id },
+      input: { ownerId: auth.data?.user.id || "" },
     }),
   );
   const { back } = useRouter();
