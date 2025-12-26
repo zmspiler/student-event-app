@@ -8,6 +8,7 @@ export default base.events.getAll.handler(async ({ input }) =>
         contains: input.find,
       },
       ownerId: input.ownerId,
+      approved: true,
     },
   }),
 );

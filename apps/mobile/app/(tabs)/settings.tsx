@@ -1,27 +1,13 @@
 import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
 import { Button } from "@/components/button";
+import { MenuButton } from "@/components/menu-button";
 import { authClient } from "@/lib/auth-client";
 
 export default function Settings() {
   const router = useRouter();
   const { data } = authClient.useSession();
   const { navigate } = useRouter();
-
-  const ManageButton = ({
-    text,
-    onPress,
-  }: {
-    text: string;
-    onPress?: () => void;
-  }) => (
-    <Button
-      title={text}
-      className="bg-gray-300"
-      textClassName="color-black"
-      onPress={onPress}
-    />
-  );
 
   return (
     <View className="p-4 gap-2">
@@ -38,11 +24,11 @@ export default function Settings() {
               <Text className="text-xl font-bold mb-2">Manage</Text>
               <View className="border-b" />
             </View>
-            <ManageButton
+            <MenuButton
               text="View my events"
-              onPress={() => navigate("/events/manage/my-events")}
+              onPress={() => navigate("/events/my-events")}
             />
-            <ManageButton
+            <MenuButton
               text="Create new event"
               onPress={() => navigate("/events/new")}
             />
