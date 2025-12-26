@@ -9,6 +9,7 @@ export default requireAuth.events.update.handler(
     context: { session },
   }) => {
     let imageName: string | undefined;
+    const where: { id: string; ownerId?: string } = { id: input.id };
 
     if (imageBase64) {
       try {
@@ -23,10 +24,14 @@ export default requireAuth.events.update.handler(
       } catch {
         throw errors.INVALID_IMAGE_TYPE();
       }
+    }
+
+    if (!(session.user.role === "admin")) {
+      where.ownerId = session.user.id;
     }
 
     const event = await prisma.event.update({
-      where: { id: input.id },
+      where,
       data: {
         ...input,
         ownerId: session.user.id,
