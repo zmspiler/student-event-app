@@ -14,7 +14,6 @@ export default function Saved() {
   useEffect(() => {
     getSavedEvents().then((events) => {
       setSavedEvents(events);
-      console.log("Saved events:", events);
     });
   }, []);
 
