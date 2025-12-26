@@ -65,20 +65,22 @@ export default function Index() {
 
         <View className="absolute bottom-10 left-0 right-0 items-center pb-4">
           <View className="flex-row items-center gap-4">
-            {data?.url && (
+            {data && (
               <View className="flex-row gap-2">
-                <Button
-                  title="Visit event page"
-                  className="shadow-md rounded-xl px-8 py-4 text-lg text-white bg-blue-500"
-                  textClassName="font-bold"
-                  onPress={() => {
-                    if (data.url) {
-                      Linking.openURL(data.url);
-                    }
-                  }}
-                />
+                {data?.url && (
+                  <Button
+                    title="Visit event page"
+                    className="shadow-md rounded-xl px-8 py-4 text-lg text-white bg-blue-500"
+                    textClassName="font-bold"
+                    onPress={() => {
+                      if (data.url) {
+                        Linking.openURL(data.url);
+                      }
+                    }}
+                  />
+                )}
                 <Pressable
-                  className="bg-blue-500 p-4 rounded-xl aspect-square h-full items-center justify-center"
+                  className="bg-blue-500 p-4 rounded-xl aspect-square h-14 items-center justify-center"
                   onPress={async () => {
                     if (isSaved) {
                       await unsaveEvent(data.id);
@@ -100,7 +102,7 @@ export default function Index() {
             {data && data.ownerId === session?.user.id && (
               <View className="flex-row gap-2">
                 <Pressable
-                  className="bg-gray-400 p-4 rounded-xl aspect-square h-full items-center justify-center"
+                  className="bg-gray-400 p-4 rounded-xl aspect-square h-14 items-center justify-center"
                   onPress={() =>
                     navigate({
                       pathname: "/events/[eventId]/edit",
@@ -111,7 +113,7 @@ export default function Index() {
                   <FontAwesome name="pencil" size={18} color={"white"} />
                 </Pressable>
                 <Pressable
-                  className="bg-gray-400 p-4 rounded-xl aspect-square h-full items-center justify-center"
+                  className="bg-gray-400 p-4 rounded-xl aspect-square h-14 items-center justify-center"
                   onPress={async () => {
                     if (eventId) {
                       await mutateAsync({ id: data.id });
