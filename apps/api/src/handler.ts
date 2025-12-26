@@ -7,7 +7,6 @@ import {
 } from "@orpc/server/plugins";
 import { ZodSmartCoercionPlugin } from "@orpc/zod";
 import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
-import z from "zod";
 import { router } from "./router";
 
 export const handler = new OpenAPIHandler(router, {

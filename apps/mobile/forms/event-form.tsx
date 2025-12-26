@@ -114,8 +114,10 @@ type EventInput = z.infer<typeof EventSchema>;
 const defaultValues: EventInput = {
   title: "",
   description: null,
+  // biome-ignore lint/style/noNonNullAssertion: Default value should not be defined
   date: undefined!,
   location: "",
+  // biome-ignore lint/style/noNonNullAssertion: Default value should not be defined
   time: undefined!,
 };
 
