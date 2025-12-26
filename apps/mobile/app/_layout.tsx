@@ -7,7 +7,7 @@ import {
 import * as Network from "expo-network";
 import { Stack } from "expo-router";
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 export default function Layout() {
   onlineManager.setEventListener((setOnline) => {

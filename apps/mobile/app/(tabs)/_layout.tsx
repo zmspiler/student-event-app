@@ -33,6 +33,16 @@ export default function Layout() {
           tabBarIcon: () => <FontAwesome name="cog" size={24} color="black" />,
         }}
       />
+      <Tabs.Screen
+        name="manage"
+        options={{
+          href: data?.user.role === "admin" ? "/manage" : null,
+          title: "Manage",
+          tabBarIcon: () => (
+            <FontAwesome name="black-tie" size={24} color="black" />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

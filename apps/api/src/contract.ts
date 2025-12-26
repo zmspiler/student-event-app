@@ -2,7 +2,10 @@ import { oc } from "@orpc/contract";
 import z from "zod";
 import { EventSchema } from "../prisma/generated/schemas";
 
-const PublicEventSchema = EventSchema.omit({ approved: true });
+const PublicEventSchema = EventSchema.omit({
+  createdAt: true,
+  updatedAt: true,
+});
 
 export const contract = {
   events: {
@@ -35,6 +38,39 @@ export const contract = {
         }),
       )
       .output(PublicEventSchema.array()),
+    getUnapproved: oc
+      .route({
+        method: "GET",
+        tags: ["events"],
+        path: "/events/unapproved",
+        successStatus: 200,
+      })
+      .output(PublicEventSchema.array())
+      .errors({
+        FORBIDDEN: {
+          message: "You do not have permission to view unapproved events.",
+          status: 403,
+        },
+      }),
+    setApproval: oc
+      .route({
+        method: "POST",
+        tags: ["events"],
+        path: "/events/{id}/approval",
+        successStatus: 200,
+      })
+      .input(
+        z.object({
+          id: z.cuid(),
+          approved: z.boolean(),
+        }),
+      )
+      .errors({
+        FORBIDDEN: {
+          message: "You do not have permission to set event approval.",
+          status: 403,
+        },
+      }),
     create: oc
       .route({
         method: "POST",
@@ -46,7 +82,7 @@ export const contract = {
         PublicEventSchema.extend({
           date: z.coerce.date(),
           imageBase64: z.base64().optional(),
-        }).omit({ imageUrl: true, ownerId: true }),
+        }).omit({ id: true, imageUrl: true, ownerId: true, approved: true }),
       )
       .output(PublicEventSchema)
       .errors({
@@ -67,7 +103,7 @@ export const contract = {
           id: z.cuid(),
           date: z.coerce.date(),
           imageBase64: z.base64().optional(),
-        }).omit({ imageUrl: true, ownerId: true }),
+        }).omit({ imageUrl: true, ownerId: true, approved: true }),
       )
       .output(PublicEventSchema)
       .errors({
