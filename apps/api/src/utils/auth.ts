@@ -1,12 +1,13 @@
 import { expo } from "@better-auth/expo";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { openAPI } from "better-auth/plugins";
+import { admin, openAPI } from "better-auth/plugins";
 import { AUTH_SECRET, AUTH_URL } from "./environment";
 import { prisma } from "./prisma";
 
 export const auth = betterAuth({
   plugins: [
+    admin(),
     openAPI({
       path: "/spec",
     }),
@@ -22,15 +23,5 @@ export const auth = betterAuth({
   baseURL: AUTH_URL,
   secret: AUTH_SECRET,
   basePath: "/auth",
-  user: {
-    additionalFields: {
-      role: {
-        type: ["user", "admin"],
-        required: true,
-        defaultValue: "user",
-        input: false,
-      },
-    },
-  },
   trustedOrigins: ["http://localhost:3080", "asd://", "exp://"],
 });
