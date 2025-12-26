@@ -4,6 +4,7 @@ import { Image } from "expo-image";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Linking, Pressable, Text, View } from "react-native";
+import { queryClient } from "@/app/_layout";
 import { Button } from "@/components/button";
 import { apiQueryClient } from "@/lib/api-client";
 import { authClient } from "@/lib/auth-client";
@@ -12,10 +13,13 @@ import { isEventSaved, saveEvent, unsaveEvent } from "@/lib/utils/saved-events";
 
 export default function Index() {
   const { eventId } = useLocalSearchParams();
-  const { navigate } = useRouter();
+  const { navigate, back } = useRouter();
   const { data: session } = authClient.useSession();
-  const { mutateAsync } = useMutation(
+  const deleteMutation = useMutation(
     apiQueryClient.events.delete.mutationOptions(),
+  );
+  const approveMutation = useMutation(
+    apiQueryClient.events.setApproval.mutationOptions(),
   );
   const { data, isLoading } = useQuery(
     apiQueryClient.events.get.queryOptions({
@@ -64,7 +68,52 @@ export default function Index() {
         </View>
 
         <View className="absolute bottom-10 left-0 right-0 items-center pb-4">
-          <View className="flex-row items-center gap-4">
+          <View className="items-center gap-2">
+            {data &&
+              (data.ownerId === session?.user.id ||
+                session?.user.role === "admin") && (
+                <View className="flex-row gap-2">
+                  <Pressable
+                    className="bg-gray-400 p-4 rounded-xl aspect-square h-14 items-center justify-center"
+                    onPress={() =>
+                      navigate({
+                        pathname: "/events/[eventId]/edit",
+                        params: { eventId: data.id },
+                      })
+                    }
+                  >
+                    <FontAwesome name="pencil" size={18} color={"white"} />
+                  </Pressable>
+                  <Pressable
+                    className="bg-gray-400 p-4 rounded-xl aspect-square h-14 items-center justify-center"
+                    onPress={async () => {
+                      await deleteMutation.mutateAsync({ id: data.id });
+                      navigate("/(tabs)");
+                    }}
+                  >
+                    <FontAwesome name="trash" size={18} color={"white"} />
+                  </Pressable>
+                  {session?.user.role && session.user.role === "admin" && (
+                    <Pressable
+                      className="bg-gray-400 p-4 rounded-xl aspect-square h-14 items-center justify-center"
+                      onPress={async () => {
+                        await approveMutation.mutateAsync({
+                          id: data.id,
+                          approved: !data.approved,
+                        });
+                        queryClient.invalidateQueries({
+                          queryKey:
+                            apiQueryClient.events.getUnapproved.queryKey(),
+                        });
+                        back();
+                      }}
+                    >
+                      <FontAwesome name="check" size={18} color={"white"} />
+                    </Pressable>
+                  )}
+                </View>
+              )}
+
             {data && (
               <View className="flex-row gap-2">
                 {data?.url && (
@@ -96,32 +145,6 @@ export default function Index() {
                     size={18}
                     color={"white"}
                   />
-                </Pressable>
-              </View>
-            )}
-            {data && data.ownerId === session?.user.id && (
-              <View className="flex-row gap-2">
-                <Pressable
-                  className="bg-gray-400 p-4 rounded-xl aspect-square h-14 items-center justify-center"
-                  onPress={() =>
-                    navigate({
-                      pathname: "/events/[eventId]/edit",
-                      params: { eventId: data.id },
-                    })
-                  }
-                >
-                  <FontAwesome name="pencil" size={18} color={"white"} />
-                </Pressable>
-                <Pressable
-                  className="bg-gray-400 p-4 rounded-xl aspect-square h-14 items-center justify-center"
-                  onPress={async () => {
-                    if (eventId) {
-                      await mutateAsync({ id: data.id });
-                      navigate("/(tabs)");
-                    }
-                  }}
-                >
-                  <FontAwesome name="close" size={18} color={"white"} />
                 </Pressable>
               </View>
             )}

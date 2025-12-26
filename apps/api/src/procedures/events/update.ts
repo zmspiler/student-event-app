@@ -30,6 +30,7 @@ export default requireAuth.events.update.handler(
       data: {
         ...input,
         ownerId: session.user.id,
+        approved: false,
         imageUrl: imageName ? `/uploads/images/${imageName}` : undefined,
       },
     });
