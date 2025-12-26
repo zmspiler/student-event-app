@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useFocusEffect } from "expo-router";
 import { useEffect, useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { EventCard } from "@/components/event-card";
@@ -15,7 +16,13 @@ export default function Saved() {
     getSavedEvents().then((events) => {
       setSavedEvents(events);
     });
-  }, []);
+  });
+
+  useFocusEffect(() => {
+    getSavedEvents().then((events) => {
+      setSavedEvents(events);
+    });
+  });
 
   return (
     <View className="p-4">
