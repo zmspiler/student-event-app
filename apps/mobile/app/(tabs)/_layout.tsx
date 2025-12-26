@@ -1,7 +1,10 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
+import { authClient } from "@/lib/auth-client";
 
 export default function Layout() {
+  const { data } = authClient.useSession();
+
   return (
     <Tabs>
       <Tabs.Screen

@@ -1,6 +1,8 @@
 import { oc } from "@orpc/contract";
 import z from "zod";
-import { EventInputSchema, EventSchema } from "../prisma/generated/schemas";
+import { EventSchema } from "../prisma/generated/schemas";
+
+const PublicEventSchema = EventSchema.omit({ approved: true });
 
 export const contract = {
   events: {
@@ -12,7 +14,7 @@ export const contract = {
         successStatus: 200,
       })
       .input(z.object({ id: z.cuid() }))
-      .output(EventSchema)
+      .output(PublicEventSchema)
       .errors({
         NOT_FOUND: {
           message: "Entity not found.",
@@ -32,7 +34,7 @@ export const contract = {
           ownerId: z.string().optional(),
         }),
       )
-      .output(EventSchema.array()),
+      .output(PublicEventSchema.array()),
     create: oc
       .route({
         method: "POST",
@@ -41,12 +43,12 @@ export const contract = {
         successStatus: 201,
       })
       .input(
-        EventInputSchema.extend({
+        PublicEventSchema.extend({
           date: z.coerce.date(),
           imageBase64: z.base64().optional(),
-        }).omit({ imageUrl: true, owner: true, ownerId: true }),
+        }).omit({ imageUrl: true, ownerId: true }),
       )
-      .output(EventSchema)
+      .output(PublicEventSchema)
       .errors({
         INVALID_IMAGE_TYPE: {
           message: "Invalid image file type. Allowed types are png, jpg, jpeg.",
@@ -61,13 +63,13 @@ export const contract = {
         successStatus: 200,
       })
       .input(
-        EventInputSchema.extend({
+        PublicEventSchema.extend({
           id: z.cuid(),
           date: z.coerce.date(),
           imageBase64: z.base64().optional(),
-        }).omit({ imageUrl: true, owner: true, ownerId: true }),
+        }).omit({ imageUrl: true, ownerId: true }),
       )
-      .output(EventSchema)
+      .output(PublicEventSchema)
       .errors({
         NOT_FOUND: {
           message: "Entity not found.",

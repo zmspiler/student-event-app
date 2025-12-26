@@ -29,9 +29,8 @@ export const handler = new OpenAPIHandler(router, {
   ],
   interceptors: [
     onError((error) => {
-      if (error instanceof ORPCError) {
-        console.log(error.cause);
-      }
+      if (error instanceof ORPCError) console.log(error.cause);
+      else console.log(error);
     }),
   ],
 });
