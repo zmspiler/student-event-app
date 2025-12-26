@@ -20,8 +20,9 @@ model Event {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   imageUrl    String?
-  url    String?
+  url         String?
   owner       User     @relation(fields: [ownerId], references: [id])
+  approved    Boolean  @default(false)
   ownerId     String
 }
 
@@ -33,6 +34,7 @@ model User {
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @default(now()) @updatedAt
+  isAdmin       Boolean   @default(false)
   sessions      Session[]
   accounts      Account[]
   events        Event[]
