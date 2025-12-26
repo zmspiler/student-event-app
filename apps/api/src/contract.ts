@@ -29,6 +29,7 @@ export const contract = {
       .input(
         z.object({
           find: z.string().optional(),
+          ownerId: z.string().optional(),
         }),
       )
       .output(EventSchema.array()),
