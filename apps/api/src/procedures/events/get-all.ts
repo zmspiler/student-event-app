@@ -7,6 +7,7 @@ export default base.events.getAll.handler(async ({ input }) =>
       title: {
         contains: input.find,
       },
+      ownerId: input.ownerId,
     },
   }),
 );

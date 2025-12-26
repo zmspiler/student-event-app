@@ -6,9 +6,10 @@ import { createTanstackQueryUtils } from "@orpc/tanstack-query";
 import { fetch } from "expo/fetch";
 import { contract } from "../../api/src/contract";
 import { authClient } from "./auth-client";
+import { API_URL } from "./environment";
 
 const link = new OpenAPILink(contract, {
-  url: `${process.env.EXPO_PUBLIC_API_URL}/rpc`,
+  url: `${API_URL}/rpc`,
   async fetch(request, init) {
     const cookies = authClient.getCookie();
     const headers = request.headers;

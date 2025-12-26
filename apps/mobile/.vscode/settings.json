@@ -19,5 +19,6 @@
     "titleBar.inactiveForeground": "#15202b99"
   },
   "peacock.color": "#61dafb",
-  "tailwindCSS.classAttributes": ["class", "className", "headerClassName"]
+  "tailwindCSS.classAttributes": ["class", "className", "headerClassName"],
+  "editor.linkedEditing": true
 }

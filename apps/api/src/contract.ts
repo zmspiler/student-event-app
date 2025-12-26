@@ -29,6 +29,7 @@ export const contract = {
       .input(
         z.object({
           find: z.string().optional(),
+          ownerId: z.string().optional(),
         }),
       )
       .output(EventSchema.array()),
@@ -62,6 +63,7 @@ export const contract = {
       .input(
         EventInputSchema.extend({
           id: z.cuid(),
+          date: z.coerce.date(),
           imageBase64: z.base64().optional(),
         }).omit({ imageUrl: true, owner: true, ownerId: true }),
       )

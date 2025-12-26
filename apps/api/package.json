@@ -13,6 +13,7 @@
     "better-sqlite3": "^12.4.6",
     "dotenv": "^17.2.3",
     "hono": "^4.10.4",
+    "use-debounce": "^10.0.6",
     "zod": "^4.1.12"
   },
   "scripts": {

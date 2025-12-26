@@ -1,6 +1,6 @@
 import { OpenAPIHandler } from "@orpc/openapi/fetch";
 import { OpenAPIReferencePlugin } from "@orpc/openapi/plugins";
-import { onError } from "@orpc/server";
+import { ORPCError, onError } from "@orpc/server";
 import {
   RequestHeadersPlugin,
   ResponseHeadersPlugin,
@@ -27,5 +27,11 @@ export const handler = new OpenAPIHandler(router, {
       },
     }),
   ],
-  interceptors: [onError((error) => console.log(error))],
+  interceptors: [
+    onError((error) => {
+      if (error instanceof ORPCError) {
+        console.log(error.cause);
+      }
+    }),
+  ],
 });

@@ -1,35 +1,19 @@
 import { useForm } from "@tanstack/react-form";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "expo-router";
 import { View } from "react-native";
 import z from "zod";
 import { Button } from "@/components/button";
-import { DateTimeField } from "@/components/date-time-field";
+import { DateTimeField } from "@/components/date-field";
 import ImageField from "@/components/image-field";
 import { TextField } from "@/components/text-field";
-import { apiQueryClient } from "@/lib/api-client";
+import { TimeField } from "@/components/time-field";
 
-export default function NewEvent() {
-  const { navigate } = useRouter();
-  const { mutateAsync } = useMutation(
-    apiQueryClient.events.create.mutationOptions(),
-  );
-  const { Field, Subscribe, handleSubmit, reset } = useForm({
-    defaultValues,
+export function EventForm({ value, onSubmit, mode = "create" }: Props) {
+  const { Field, Subscribe, handleSubmit } = useForm({
+    defaultValues: value ?? defaultValues,
     validators: {
       onChange: EventSchema,
     },
-    onSubmit: async ({ value }) => {
-      await mutateAsync({
-        title: value.title,
-        description: value.description ?? "",
-        location: value.location,
-        date: value.date,
-        imageBase64: value.image,
-      });
-      reset();
-      navigate("/(tabs)");
-    },
+    onSubmit: onSubmit ? ({ value }) => onSubmit(value) : undefined,
   });
 
   return (
@@ -58,8 +42,27 @@ export default function NewEvent() {
       <Field name="date">
         {(field) => (
           <DateTimeField
+            minimumDate={new Date()}
             value={field.state.value}
             onChange={field.handleChange}
+          />
+        )}
+      </Field>
+      <Field name="time">
+        {(field) => (
+          <TimeField
+            minimumDate={new Date(Date.now() + 60 * 60 * 1000)}
+            value={field.state.value}
+            onChange={field.handleChange}
+          />
+        )}
+      </Field>
+      <Field name="url">
+        {(field) => (
+          <TextField
+            placeholder="URL"
+            value={field.state.value}
+            onChangeText={field.handleChange}
           />
         )}
       </Field>
@@ -86,7 +89,7 @@ export default function NewEvent() {
         ]}
         children={([canSubmit, isSubmitting, isPristine]) => (
           <Button
-            title="Create event"
+            title={`${mode.toUpperCase()} EVENT`}
             disabled={!canSubmit || isSubmitting || isPristine}
             onPress={handleSubmit}
           />
@@ -100,8 +103,10 @@ const EventSchema = z.object({
   title: z.string().min(1, "Event name is required"),
   description: z.string().nullable(),
   location: z.string().min(1, "Location is required"),
-  date: z.date().min(new Date(), "Date must be in the future"),
+  date: z.date().min(new Date(), "Date must be at least 1 hour from now"),
+  time: z.date().min(new Date(), "Time must be at least 1 hour from now"),
   image: z.base64().optional(),
+  url: z.url().optional(),
 });
 
 type EventInput = z.infer<typeof EventSchema>;
@@ -109,7 +114,15 @@ type EventInput = z.infer<typeof EventSchema>;
 const defaultValues: EventInput = {
   title: "",
   description: null,
-  date: new Date(),
+  // biome-ignore lint/style/noNonNullAssertion: Default value should not be defined
+  date: undefined!,
   location: "",
-  image: undefined,
+  // biome-ignore lint/style/noNonNullAssertion: Default value should not be defined
+  time: undefined!,
+};
+
+type Props = {
+  value?: EventInput;
+  onSubmit?: (value: EventInput) => void;
+  mode?: "create" | "edit";
 };

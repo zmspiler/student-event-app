@@ -1,25 +1,26 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import { authClient } from "@/lib/auth-client";
 
 export default function Layout() {
-  const { data, error } = authClient.useSession();
-
   return (
     <Tabs>
       <Tabs.Screen
-        name="index"
+        name="saved"
         options={{
-          title: "Home",
-          tabBarIcon: () => <FontAwesome name="home" size={24} color="black" />,
+          href: "/saved",
+          title: "Saved Events",
+          tabBarIcon: () => (
+            <FontAwesome name="bookmark" size={24} color="black" />
+          ),
         }}
       />
       <Tabs.Screen
-        name="new"
+        name="index"
         options={{
-          href: data && !error ? "/new" : null,
-          title: "New Event",
-          tabBarIcon: () => <FontAwesome name="plus" size={24} color="black" />,
+          title: "Find",
+          tabBarIcon: () => (
+            <FontAwesome name="search" size={24} color="black" />
+          ),
         }}
       />
       <Tabs.Screen
