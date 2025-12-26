@@ -22,5 +22,15 @@ export const auth = betterAuth({
   baseURL: AUTH_URL,
   secret: AUTH_SECRET,
   basePath: "/auth",
+  user: {
+    additionalFields: {
+      role: {
+        type: ["user", "admin"],
+        required: true,
+        defaultValue: "user",
+        input: false,
+      },
+    },
+  },
   trustedOrigins: ["http://localhost:3080", "asd://", "exp://"],
 });
