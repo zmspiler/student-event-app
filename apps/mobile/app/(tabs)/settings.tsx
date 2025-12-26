@@ -6,18 +6,47 @@ import { authClient } from "@/lib/auth-client";
 export default function Settings() {
   const router = useRouter();
   const { data } = authClient.useSession();
+  const { navigate } = useRouter();
+
+  const ManageButton = ({
+    text,
+    onPress,
+  }: {
+    text: string;
+    onPress?: () => void;
+  }) => (
+    <Button
+      title={text}
+      className="bg-gray-300"
+      textClassName="color-black"
+      onPress={onPress}
+    />
+  );
 
   return (
     <View className="p-4 gap-2">
       {data ? (
-        <View className="gap-2">
-          <Text className="text-4xl">Hi, {data.user.name.split(" ")[0]}!</Text>
+        <View className="gap-4">
           <Button
             title="Log out"
             onPress={async () => {
               await authClient.signOut();
             }}
           />
+          <View className="gap-3">
+            <View>
+              <Text className="text-xl font-bold mb-2">Manage</Text>
+              <View className="border-b" />
+            </View>
+            <ManageButton
+              text="View my events"
+              onPress={() => navigate("/events/manage/my-events")}
+            />
+            <ManageButton
+              text="Create new event"
+              onPress={() => navigate("/events/new")}
+            />
+          </View>
         </View>
       ) : (
         <View className="gap-2">

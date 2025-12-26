@@ -8,18 +8,22 @@ export default function Layout() {
   return (
     <Tabs>
       <Tabs.Screen
-        name="index"
+        name="saved"
         options={{
-          title: "Home",
-          tabBarIcon: () => <FontAwesome name="home" size={24} color="black" />,
+          href: "/saved",
+          title: "Saved Events",
+          tabBarIcon: () => (
+            <FontAwesome name="bookmark" size={24} color="black" />
+          ),
         }}
       />
       <Tabs.Screen
-        name="new-event"
+        name="index"
         options={{
-          href: data && !error ? "/new-event" : null,
-          title: "New Event",
-          tabBarIcon: () => <FontAwesome name="plus" size={24} color="black" />,
+          title: "Find",
+          tabBarIcon: () => (
+            <FontAwesome name="search" size={24} color="black" />
+          ),
         }}
       />
       <Tabs.Screen
