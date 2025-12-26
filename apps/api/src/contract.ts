@@ -1,6 +1,6 @@
 import { oc } from "@orpc/contract";
 import z from "zod";
-import { EventInputSchema, EventSchema } from "../prisma/generated/schemas";
+import { EventSchema } from "../prisma/generated/schemas";
 
 const PublicEventSchema = EventSchema.omit({ approved: true });
 
@@ -46,7 +46,7 @@ export const contract = {
         PublicEventSchema.extend({
           date: z.coerce.date(),
           imageBase64: z.base64().optional(),
-        }).omit({ imageUrl: true, owner: true, ownerId: true }),
+        }).omit({ imageUrl: true, ownerId: true }),
       )
       .output(PublicEventSchema)
       .errors({
@@ -67,7 +67,7 @@ export const contract = {
           id: z.cuid(),
           date: z.coerce.date(),
           imageBase64: z.base64().optional(),
-        }).omit({ imageUrl: true, owner: true, ownerId: true }),
+        }).omit({ imageUrl: true, ownerId: true }),
       )
       .output(PublicEventSchema)
       .errors({
