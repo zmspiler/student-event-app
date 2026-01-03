@@ -100,11 +100,11 @@ export function EventForm({ value, onSubmit, mode = "create" }: Props) {
 }
 
 const EventSchema = z.object({
-  title: z.string().min(1, "Event name is required"),
+  title: z.string().min(1),
   description: z.string().nullable(),
-  location: z.string().min(1, "Location is required"),
-  date: z.date().min(new Date(), "Date must be at least 1 hour from now"),
-  time: z.date().min(new Date(), "Time must be at least 1 hour from now"),
+  location: z.string().min(1),
+  date: z.date(),
+  time: z.date(),
   image: z.base64().optional(),
   url: z.url().optional(),
 });
@@ -114,11 +114,9 @@ type EventInput = z.infer<typeof EventSchema>;
 const defaultValues: EventInput = {
   title: "",
   description: null,
-  // biome-ignore lint/style/noNonNullAssertion: Default value should not be defined
-  date: undefined!,
+  date: new Date(),
   location: "",
-  // biome-ignore lint/style/noNonNullAssertion: Default value should not be defined
-  time: undefined!,
+  time: new Date(),
 };
 
 type Props = {

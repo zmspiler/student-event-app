@@ -14,10 +14,11 @@ export default function NewEvent() {
     <>
       <Stack.Screen options={{ headerTitle: "New Event" }} />
       <EventForm
-        onSubmit={async ({ description, date, time, ...value }) => {
+        onSubmit={async ({ description, date, time, image, ...value }) => {
           await mutateAsync({
             description: description ?? "",
             date: mergeDateAndTime(date, time),
+            imageBase64: image,
             ...value,
           });
           navigate("/(tabs)");
