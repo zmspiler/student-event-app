@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "tsx watch ./src/server.ts",
     "check-types": "tsc --noEmit",
-    "build": "node ./build.mjs"
+    "build": "prisma generate && node ./build.mjs"
   },
   "type": "module",
   "private": true,
