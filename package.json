@@ -6,7 +6,7 @@
   "scripts": {
     "check": "biome check .",
     "check-types": "turbo check-types",
-    "build:": "turbo build",
+    "build": "turbo build",
     "check:fix": "biome check --write .",
     "dev": "turbo dev"
   },
