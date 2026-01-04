@@ -27,7 +27,6 @@
     "@types/node": "^24.10.4",
     "esbuild": "0.27.2",
     "prisma": "^7.2.0",
-    "prisma-erd-generator": "^2.4.2",
     "prisma-zod-generator": "^2.1.2",
     "puppeteer": "^23.11.1",
     "tsx": "^4.21.0",
