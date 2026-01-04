@@ -1,16 +1,12 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 generator zod {
   provider = "prisma-zod-generator"
-}
-
-generator erd {
-  provider = "prisma-erd-generator"
-  output = "../ERD.png"
+  output   = "../src/generated/zod"
 }
 
 datasource db {

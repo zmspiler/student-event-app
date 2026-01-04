@@ -9,6 +9,9 @@
       "persistent": true,
       "cache": false
     },
+    "build": {
+      "dependsOn": ["^build"]
+    },
     "//#check": {
       "cache": false
     },

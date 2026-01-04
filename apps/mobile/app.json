@@ -4,7 +4,7 @@
     "slug": "asd",
     "version": "1.0.0",
     "scheme": "asd",
-    "platforms": ["web", "android"],
+    "platforms": ["android"],
     "web": {
       "bundler": "metro",
       "output": "static",
@@ -33,6 +33,12 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.anonymous.asd"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "4a095a17-a800-4f35-bbaa-a63b6d78e0a6"
+      }
     }
   }
 }

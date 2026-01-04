@@ -2,10 +2,7 @@
   "$schema": "../../../node_modules/prisma-zod-generator/lib/config/schema.json",
   "mode": "minimal",
   "strictMode": {
-    "enabled": true,
-    "operations": true,
-    "objects": true,
-    "variants": true,
-    "enums": true
-  }
+    "enabled": true
+  },
+  "useMultipleFiles": false
 }

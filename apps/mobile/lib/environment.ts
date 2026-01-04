@@ -1,10 +1,16 @@
-import { Platform } from "react-native";
+/** biome-ignore-all lint/style/noNonNullAssertion: App will exit if environment variables are not present  */
 
-const webApiUrl = process.env.EXPO_PUBLIC_WEB_API_URL;
-const androidApiUrl = process.env.EXPO_PUBLIC_ANDROID_API_URL;
+const envVars = [
+  {
+    name: "EXPO_PUBLIC_ASD_ANDROID_API_URL",
+    value: process.env.EXPO_PUBLIC_ASD_ANDROID_API_URL,
+  },
+];
 
-if (!webApiUrl || !androidApiUrl) {
-  throw new Error("Missing required environment variables");
+const missing = envVars.filter((v) => !v.value).map((v) => v.name);
+if (missing.length > 0) {
+  console.error("Missing environment variables:", missing.join(", "));
+  process.exit(1);
 }
 
-export const API_URL = Platform.OS === "web" ? webApiUrl : androidApiUrl;
+export const API_URL = process.env.EXPO_PUBLIC_ASD_ANDROID_API_URL!;

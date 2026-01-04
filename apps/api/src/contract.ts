@@ -1,6 +1,6 @@
 import { oc } from "@orpc/contract";
 import z from "zod";
-import { EventSchema } from "../prisma/generated/schemas";
+import { EventSchema } from "./generated/zod/schemas";
 
 const PublicEventSchema = EventSchema.omit({
   createdAt: true,
