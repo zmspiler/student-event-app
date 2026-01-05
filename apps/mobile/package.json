@@ -11,7 +11,8 @@
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\" && prettier -c \"**/*.{js,jsx,ts,tsx,json}\"",
     "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
     "web": "expo start --web",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "eas-build-post-install": "cd ../api && npx prisma generate"
   },
   "dependencies": {
     "@better-auth/expo": "^1.4.9",
