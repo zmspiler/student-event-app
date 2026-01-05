@@ -30,11 +30,15 @@ jobs:
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Generate Prisma Client
+        run: cd apps/api && npx prisma generate
 
       - name: Build application
         run: npm run build
