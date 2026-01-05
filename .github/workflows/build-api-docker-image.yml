@@ -45,6 +45,9 @@ jobs:
       - name: Build application
         run: npm run build
 
+      - name: Update database schema
+        run: cd apps/api && npx prisma migrate deploy
+
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
