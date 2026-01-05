@@ -14,7 +14,7 @@ export const auth = betterAuth({
     expo(),
   ],
   database: prismaAdapter(prisma, {
-    provider: "sqlite",
+    provider: "postgresql",
   }),
   emailAndPassword: {
     enabled: true,

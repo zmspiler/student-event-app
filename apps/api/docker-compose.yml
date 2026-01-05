@@ -1,0 +1,24 @@
+# Development Docker Compose configuration for PostgreSQL
+
+services:
+  db:
+    image: postgres:18-trixie
+    container_name: asd_db
+    environment:
+      POSTGRES_USER: asd
+      POSTGRES_PASSWORD: asd
+      POSTGRES_DB: asd
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    restart: unless-stopped
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+
+volumes:
+  postgres_data:

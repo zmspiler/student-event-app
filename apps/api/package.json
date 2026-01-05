@@ -7,13 +7,12 @@
     "@orpc/openapi": "^1.10.3",
     "@orpc/server": "^1.10.2",
     "@orpc/zod": "^1.13.1",
-    "@prisma/adapter-better-sqlite3": "^7.2.0",
+    "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.2.0",
     "better-auth": "^1.4.0",
-    "better-sqlite3": "^12.5.0",
     "dotenv": "^17.2.3",
     "hono": "^4.11.3",
-    "use-debounce": "^10.0.6",
+    "pg": "^8.16.3",
     "zod": "^4.2.1"
   },
   "scripts": {
@@ -26,6 +25,7 @@
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^11.12.0",
     "@types/node": "^24.10.4",
+    "@types/pg": "^8.16.0",
     "esbuild": "0.27.2",
     "prisma": "^7.2.0",
     "prisma-zod-generator": "^2.1.2",
