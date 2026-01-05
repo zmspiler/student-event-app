@@ -7,8 +7,10 @@ import getAllEvents from "./procedures/events/get-all";
 import getUnapprovedEvents from "./procedures/events/get-unapproved";
 import approveEvent from "./procedures/events/set-approval";
 import updateEvent from "./procedures/events/update";
+import ready from "./procedures/ready";
 
 export const router = os.router({
+  ready,
   events: {
     get: getEvent,
     getAll: getAllEvents,

@@ -8,6 +8,12 @@ const PublicEventSchema = EventSchema.omit({
 });
 
 export const contract = {
+  ready: oc.route({
+    method: "GET",
+    tags: ["health"],
+    path: "/ready",
+    successStatus: 200,
+  }),
   events: {
     get: oc
       .route({
